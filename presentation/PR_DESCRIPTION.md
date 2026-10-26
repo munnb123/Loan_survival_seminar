@@ -1,0 +1,9 @@
+Adds a standalone 25-minute MSc Beamer lecture for Luke Munnelly, explaining time to default, censoring and competing closure, survival/hazard relationships, Cox regression, proportional hazards and the risk-set calculation before presenting the audited Bondora results.
+
+The deck has 20 main logical slides and two optional backups. The presentation PDF has 39 pages with progressive reveals; the handout has 22 pages, one per logical slide. Includes editable LaTeX, embedded and Markdown speaker notes timed to 25:00, generated audited display values, exact build instructions and render-check records. Existing vector PDF figures are included through repository-relative paths. No thesis reference is included.
+
+The existing analysis, figures, report and estimates are unchanged. Visible qualifications preserve the cause-specific interpretation, audited closure proxy, monetary-unit limitations, approximate tied-date intervals and corrected PH concerns for age/new-customer status. Hypothetical illustrations are distinguished from empirical results; no models, statistical tests or prediction metrics are added.
+
+Validation: `python3 presentation/build.py` compiles both PDFs with no LaTeX warnings, overflow, missing glyphs or undefined references. `python3 presentation/review.py` renders all 39 presentation and 22 handout pages, confirms each handout slide matches its final reveal, and finds no overlay text movement or text outside page boundaries. Every logical slide and intermediate reveal was visually inspected, including the corrected Cox equation and separated captions. Original analysis files have no diff.
+
+Remaining limitations are the audited source-definition uncertainties and approximate model intervals, plus rehearsal-dependent pacing. Leave this pull request as a draft; do not merge.
