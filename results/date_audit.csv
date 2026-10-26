@@ -1,0 +1,9 @@
+field,nonmissing,unparseable,minimum,maximum
+ReportAsOfEOD,9863,0,2021-07-20,2021-07-20
+LoanDate,9863,0,2013-01-01,2015-12-31
+DefaultDate,3778,0,2013-05-06,2021-06-29
+ContractEndDate,8489,0,2013-03-05,2027-05-27
+FirstPaymentDate,9863,0,2013-02-01,2016-02-25
+MaturityDate_Original,9863,0,2013-03-05,2021-01-25
+MaturityDate_Last,9863,0,2013-03-05,2027-07-27
+LastPaymentOn,9850,0,2013-03-05,2021-07-19

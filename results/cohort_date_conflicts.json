@@ -1,0 +1,9 @@
+{
+  "repaid_missing_repayment_date": 14,
+  "default_before_issue": 0,
+  "repayment_before_issue": 0,
+  "default_after_recorded_repayment": 0,
+  "default_repayment_same_date": 3,
+  "default_after_cutoff": 0,
+  "repayment_after_cutoff": 2
+}

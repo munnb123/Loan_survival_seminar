@@ -1,0 +1,9 @@
+{
+  "endpoint_reconstruction": "passed",
+  "loans": 9844,
+  "defaults": 2508,
+  "coefficient_max_absolute_difference": 1.5932116849692868e-06,
+  "coefficient_tolerance": 1e-05,
+  "corrected_PH_invariant_to_vintage_label_order": "passed",
+  "SE_crosscheck": "not claimed: coefficient-only independent implementation check"
+}

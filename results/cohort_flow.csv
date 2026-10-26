@@ -1,0 +1,6 @@
+step,remaining,excluded
+snapshot,9863,0
+Estonia issued 2013–2015,9863,0
+remove unresolved outcome/date conflicts,9846,17
+positive follow-up (exclude day-zero exits),9846,0
+complete valid covariates and borrower/loan identifiers,9844,2

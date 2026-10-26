@@ -1,0 +1,13 @@
+{
+  "DefaultDate_before_issue": 0,
+  "ContractEndDate_before_issue": 0,
+  "LastPaymentOn_before_issue": 0,
+  "default_after_contract_end": 0,
+  "default_same_day_contract_end": 3,
+  "contract_end_equals_original_maturity": 1703,
+  "rows": 9863,
+  "duplicate_nonmissing_loan_ids": 0,
+  "original_schedule_term_disagrees_with_LoanDuration": 59,
+  "first_payment_delay_days_min": 17,
+  "first_payment_delay_days_max": 69
+}

@@ -1,0 +1,4 @@
+status,loans,recorded_default,contract_end_present,contract_end_after_report,contract_end_equals_original_maturity,contract_end_equals_last_payment,principal_writeoff_positive,principal_payments_short_of_amount
+Current,309,6,307,307,0,0,0,308
+Late,1942,1906,584,470,1,0,0,1909
+Repaid,7612,1866,7598,2,1702,6051,1001,1034
