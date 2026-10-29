@@ -10,9 +10,9 @@ import subprocess
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 BUILD = HERE / "build"
-MAIN_SLIDES = 26
+MAIN_SLIDES = 28
 BACKUP_SLIDES = 2
-OPTIONAL_SLIDES = {5, 13}
+OPTIONAL_SLIDES = {6, 14}
 
 
 def clock(seconds):
@@ -35,12 +35,15 @@ def main():
     BUILD.mkdir(exist_ok=True)
     hr = {r['term']: r for r in read_csv('hazard_ratios.csv')}
     sample = read_csv('sample_summary.csv')[0]
+    timing={(r['group'],int(r['month'])):r for r in read_csv('timing/horizon_estimates.csv')}
     macros = {"LoanCount": f"{int(sample['loans']):,}",
               "BorrowerCount": f"{int(sample['borrowers']):,}",
               "DefaultCount": f"{int(sample['defaults']):,}",
               "NewCustomerHR": f"{float(hr['new_customer']['HR']):.3f}",
               "NewCustomerLower": f"{float(hr['new_customer']['lower95']):.3f}",
-              "NewCustomerUpper": f"{float(hr['new_customer']['upper95']):.3f}"}
+              "NewCustomerUpper": f"{float(hr['new_customer']['upper95']):.3f}",
+              "NewCIFTwentyFour":f"{100*float(timing['new',24]['default_cif']):.1f}",
+              "ExistingCIFTwentyFour":f"{100*float(timing['existing',24]['default_cif']):.1f}"}
     (HERE/'audited_values.tex').write_text('% Generated from existing audited CSVs by build.py; no model fitting.\n'+
         ''.join('\\newcommand{\\'+k+'}{'+v+'}\n' for k,v in macros.items()))
     counts = {}
@@ -71,21 +74,23 @@ def main():
     sources = [ROOT/'REPORT.md',ROOT/'LECTURE_EXAMPLE.md',ROOT/'results/hazard_ratios.csv']
     sources += sorted((ROOT/'results/lecture_figures').glob('*.pdf'))
     sources += [HERE/'assets/loan_timelines.pdf']
+    sources += [HERE/'assets/audited_hazard_ratios.pdf',ROOT/'results/timing/default_cif.pdf',
+                ROOT/'results/timing/horizon_estimates.csv',ROOT/'results/timing/numbers_at_risk.csv']
     frames=frame_sources()
     report = {'logical_slides':MAIN_SLIDES+BACKUP_SLIDES,'main_slides':MAIN_SLIDES,'backup_slides':BACKUP_SLIDES,'pdf_pages':counts,
               'frame_page_ranges':ranges,'log_checks':'No overfull/underfull boxes, undefined references or missing characters',
               'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}
     notes = ['# Speaker notes — Luke Munnelly',
              f'\nStandalone lecture for MSc Stochastics and Financial Mathematics students. **{MAIN_SLIDES} main logical slides; 26:40 at a calm pace.** '
-             'Skip optional slides 5 (55 seconds) and 13 (45 seconds) for a **25:00 speaking route**. '
+             'Skip optional slides 6 (55 seconds) and 14 (45 seconds) for a **25:00 speaking route**. '
              'Audience questions and the two backup slides are outside both plans. Timings include the indicated pauses and figure reading, not extra theory or audience discussion. '
              f'The presentation has {counts["presentation"]} overlay-expanded pages; the handout has {counts["handout"]} pages, one per logical slide.\n',
              '## Practical 25-minute route\n',
-             f'- After slide 4, skip optional slide 5 and resume slide 6 on presentation PDF page {ranges["presentation"][5][0]}.',
-             f'- After slide 12, skip optional slide 13 and resume slide 14 on presentation PDF page {ranges["presentation"][13][0]}.',
-             '- These transitions are self-contained: slide 4 already explains the horizon issue, and slide 14 requires no cumulative-hazard notation.',
+             f'- After slide 5, skip optional slide 6 and resume slide 7 on presentation PDF page {ranges["presentation"][6][0]}.',
+             f'- After slide 13, skip optional slide 14 and resume slide 15 on presentation PDF page {ranges["presentation"][14][0]}.',
+             '- These transitions are self-contained: slide 5 already explains the horizon issue, and slide 15 requires no cumulative-hazard notation.',
              '- Do not rush the opening, graph reading or conditional risk-set calculation. If nervous, take the scripted short pauses rather than filling them with extra material.',
-             '- Risk-set setup is slide 18; the static worked-answer figure is slide 19. Explain the setup before advancing.\n',
+             '- Risk-set setup is slide 19; the static worked-answer figure is slide 20. The descriptive timing curve is slide 23; the adjusted Cox HR plot is slide 25.\n',
              '## Schedule\n',
              '| Slide | Full-plan time | 25-minute route | Duration | Topic |',
              '| --- | --- | --- | --- | --- |']
@@ -94,7 +99,7 @@ def main():
         timing, explanation = re.search(r'\\talknote\{([^}]*)\}\{(.*?)\}',body,re.DOTALL).groups()
         if not title:
             figure = re.search(r'\\fullfigure\{([^}]+)\}',body)
-            title = figure.group(1)[3:].replace('_',' ').title() if figure else ('Follow-up timelines' if '\\timelinefigure' in body else 'When Will a Borrower Default?')
+            title = figure.group(1)[3:].replace('_',' ').title() if figure else ('Follow-up timelines' if '\\timelinefigure' in body else ('Descriptive default timing' if '\\timingfigure' in body else ('Adjusted Cox hazard ratios' if '\\resultfigure' in body else 'When Will a Borrower Default?')))
         titles.append(title)
         seconds = sum(int(n)*m for n,m in zip(timing.split(':'),[60,1])) if i<=MAIN_SLIDES else 0
         span=f'{clock(elapsed)}–{clock(elapsed+seconds)}' if i<=MAIN_SLIDES else 'Backup'
@@ -107,7 +112,7 @@ def main():
     assert elapsed==1600 and essential==1500, (elapsed,essential)
     report.update(frame_titles=titles,speaking_seconds=elapsed,slot_route_seconds=essential,optional_main_slides=sorted(OPTIONAL_SLIDES))
     (HERE/'build_report.json').write_text(json.dumps(report,indent=2)+'\n')
-    (HERE/'speaker_notes.md').write_text('\n'.join(notes+details))
+    (HERE/'speaker_notes.md').write_text('\n'.join(notes+details)+'\n'+(HERE/'questions.md').read_text())
     print(json.dumps({k:report[k] for k in ['logical_slides','main_slides','backup_slides','pdf_pages','speaking_seconds','slot_route_seconds']},indent=2))
 
 

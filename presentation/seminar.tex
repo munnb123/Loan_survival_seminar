@@ -31,6 +31,11 @@
   \node[inner sep=0pt] at (current page.center)
   {\includegraphics[width=\paperwidth,height=\paperheight]{assets/loan_timelines.pdf}};
   \end{tikzpicture}}
+\newcommand{\pathfigure}[1]{\begin{tikzpicture}[remember picture,overlay]
+  \node[inner sep=0pt] at (current page.center)
+  {\includegraphics[width=\paperwidth,height=\paperheight]{#1}};\end{tikzpicture}}
+\newcommand{\timingfigure}{\pathfigure{../results/timing/default_cif.pdf}}
+\newcommand{\resultfigure}{\pathfigure{assets/audited_hazard_ratios.pdf}}
 \input{audited_values.tex}
 \title{When Will a Borrower Default?}
 \subtitle{Survival Analysis in Credit Risk}

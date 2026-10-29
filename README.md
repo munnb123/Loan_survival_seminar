@@ -1,6 +1,6 @@
 # When Will a Borrower Default? Survival Analysis in Credit Risk
 
-Python analysis for a 25-minute MSc seminar. Read [REPORT.md](REPORT.md) for the audit, results and limitations. No slides have been created.
+Python analysis for a 25-minute MSc seminar. Read [REPORT.md](REPORT.md) for the audit, results and limitations. The current lecture source, PDFs and speaking notes are in `presentation/`.
 
 For the short teaching version, open [LECTURE_EXAMPLE.md](LECTURE_EXAMPLE.md). [Download the code and results ZIP](Bondora_results.zip). The GitHub repository and ZIP include aggregate results, not raw borrower-level data.
 
@@ -47,3 +47,17 @@ The input is `data/Bondora_Estonia_2013_2015.csv.gz`, supplied by the user after
 Lifelines' sandwich approximation has documented limitations with many tied times; daily dates create ties here. PH test p-values on the repeated-loan sample are not cluster-adjusted; the one-loan sample offers an independent-borrower diagnostic but changes sample composition. No global cluster-adjusted PH test, predictive performance, model competition or causal interpretation is claimed. Functional-form misspecification can also affect PH checks. The source business definitions and units remain a documentation limitation; data consistency checks support operational use but do not replace original contracts or payment histories.
 
 Direct dictionary reference (unavailable through this environment's network policy): https://api.bondora.com/doc/ResourceModel?modelName=PublicDatasetItem&v=1 . The accessible Kaggle description is saved in `sources/kaggle_description.md`.
+
+
+## Descriptive answer to “when?”
+
+The addition in [`results/timing/`](results/timing/README.md) estimates unadjusted recorded-default cumulative incidence by customer status using the exact audited cohort, with the qualified closure proxy as a competing event. It complements the unchanged Cox model: timing curves describe accumulation; hazard ratios describe adjusted relative rates among exposed loans. No predictive accuracy or causal effect is claimed.
+
+```sh
+python analysis/cumulative_incidence.py
+python presentation/make_result_figure.py
+python3 presentation/build.py
+python3 presentation/review.py
+```
+
+The first two commands require the existing pinned Python plotting/data environment (in this cloud workspace, `/workspace/loan-survival-venv/bin/python`). The last two require LaTeX and Poppler as documented in `presentation/README.md`. Descriptive analysis requires the exact audited input CSV.gz; compiling the committed slides does not require borrower-level data. See `results/timing/validation.json` for the estimator checks and protected Cox-result hashes.

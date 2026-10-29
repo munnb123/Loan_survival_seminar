@@ -1,10 +1,10 @@
 {
-  "logical_slides": 28,
-  "main_slides": 26,
+  "logical_slides": 30,
+  "main_slides": 28,
   "backup_slides": 2,
   "pdf_pages": {
-    "presentation": 52,
-    "handout": 28
+    "presentation": 56,
+    "handout": 30
   },
   "frame_page_ranges": {
     "presentation": [
@@ -18,14 +18,14 @@
       ],
       [
         5,
-        6
+        7
       ],
       [
-        7,
-        8
+        8,
+        9
       ],
       [
-        9,
+        10,
         11
       ],
       [
@@ -34,14 +34,10 @@
       ],
       [
         15,
-        15
+        17
       ],
       [
-        16,
-        16
-      ],
-      [
-        17,
+        18,
         18
       ],
       [
@@ -54,71 +50,83 @@
       ],
       [
         22,
-        23
+        22
       ],
       [
-        24,
-        25
+        23,
+        24
       ],
       [
-        26,
-        27
+        25,
+        26
       ],
       [
-        28,
+        27,
+        28
+      ],
+      [
+        29,
         30
       ],
       [
         31,
-        32
-      ],
-      [
-        33,
         33
       ],
       [
         34,
-        34
-      ],
-      [
-        35,
         35
       ],
       [
         36,
+        36
+      ],
+      [
+        37,
         37
       ],
       [
         38,
+        38
+      ],
+      [
+        39,
         40
       ],
       [
         41,
-        41
+        43
       ],
       [
-        42,
-        42
-      ],
-      [
-        43,
+        44,
         44
       ],
       [
         45,
-        47
+        45
       ],
       [
-        48,
-        50
+        46,
+        46
       ],
       [
-        51,
+        47,
+        48
+      ],
+      [
+        49,
         51
       ],
       [
         52,
-        52
+        54
+      ],
+      [
+        55,
+        55
+      ],
+      [
+        56,
+        56
       ]
     ],
     "handout": [
@@ -233,25 +241,38 @@
       [
         28,
         28
+      ],
+      [
+        29,
+        29
+      ],
+      [
+        30,
+        30
       ]
     ]
   },
   "log_checks": "No overfull/underfull boxes, undefined references or missing characters",
   "source_sha256": {
-    "REPORT.md": "61254ae7d1df3c91beeb3ee325dc6612a13ec94e1c86350de376c45168e94142",
-    "LECTURE_EXAMPLE.md": "3666c17b62f9d370bbec4db3d74858a586e64232594b55999f190d5f08f7bf23",
+    "REPORT.md": "0538ff99aa55475b65b054db8ec56839e244e2c9583c2f78e90559bb63e71736",
+    "LECTURE_EXAMPLE.md": "6f5a347fb48e11dd91b7caa4bcba10903700b800aaeeef2f4670cdf3ec5721dd",
     "results/hazard_ratios.csv": "8390fc46949fa9327491c5c329173f8db8ee26e9b54da0d59eea45d42b62c5ea",
     "results/lecture_figures/01_loan_timelines.pdf": "429ca2386ca87e42575ca68c1351bdc95564626393ff146008216bdf57445c74",
     "results/lecture_figures/02_illustrative_survival.pdf": "f84152c05434a09a576d71fd7159792ec842de0991825446a096b668144b6902",
     "results/lecture_figures/03_proportional_hazards.pdf": "0deba0811836c1abd09024a8913922ca5fdf6b01905dd24f1789fc22df0c81a4",
     "results/lecture_figures/04_cox_risk_set.pdf": "81768af556ddcbbe86be3b83efa6a1e737b1309663592179a8f1bda8f9a75406",
     "results/lecture_figures/05_audited_hazard_ratios.pdf": "41b9c2efbd2eedad6b470ee8e37181dadfcaf39e6b250a2f48a5a3b92960d307",
-    "presentation/assets/loan_timelines.pdf": "b31f1c31691429ed24a390e88a0180f0200f2cf7a3ae54d20894e180acab5774"
+    "presentation/assets/loan_timelines.pdf": "b31f1c31691429ed24a390e88a0180f0200f2cf7a3ae54d20894e180acab5774",
+    "presentation/assets/audited_hazard_ratios.pdf": "84051382321f55970cc4c6b57ff358628e4bc50c7759aea5085e2043025b8cb5",
+    "results/timing/default_cif.pdf": "fb15a9ba1027a0877530676bbb7f9dd28df2a815be137571361a342fee2b36dd",
+    "results/timing/horizon_estimates.csv": "17a91838f8fd68ec232b896fc22220711759f4fa7f801609152e46806eb55d06",
+    "results/timing/numbers_at_risk.csv": "6d37ef2b52f43ebb699897a9cbbe313a7d7516febadac5102fcbb591b674cad1"
   },
   "frame_titles": [
     "When Will a Borrower Default?",
     "Should these be the same outcome?",
-    "A third borrower has not defaulted yet",
+    "Principal still outstanding",
+    "What do six months tell us?",
     "A binary label needs a horizon",
     "Which 12-month labels are known?",
     "Why survival analysis?",
@@ -262,7 +283,7 @@
     "How rapidly are defaults occurring now?",
     "From a short interval to a hazard rate",
     "From hazard to survival",
-    "Borrowers have different characteristics",
+    "From timing to borrower characteristics",
     "The Cox model",
     "Compare otherwise identical borrowers",
     "Proportional Hazards",
@@ -270,18 +291,19 @@
     "Cox Risk Set",
     "The audited Bondora cohort",
     "Follow-up uses audited endpoints",
+    "Descriptive default timing",
     "Five predictors and their contrasts",
-    "Audited Hazard Ratios",
+    "Adjusted Cox hazard ratios",
     "New versus existing customer",
     "Where interpretation is limited",
-    "Back to the lending question",
+    "When will a borrower default?",
     "Backup: partial likelihood",
     "Backup: corrected diagnostics"
   ],
   "speaking_seconds": 1600,
   "slot_route_seconds": 1500,
   "optional_main_slides": [
-    5,
-    13
+    6,
+    14
   ]
 }

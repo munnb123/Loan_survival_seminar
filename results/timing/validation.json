@@ -1,0 +1,24 @@
+{
+  "cohort_and_vintage_counts": "exactly reconciled",
+  "boundary_conflict_rules": "unchanged audited construction",
+  "all_administrative_censoring_at_day_730": true,
+  "tie_method": "simultaneous cause increments; censoring afterward; no jitter",
+  "toy_tie_and_censor_checks": "passed",
+  "simplex_and_monotonicity_checks": "passed",
+  "risk_set_and_horizon_cross_checks": "passed",
+  "day_730_counts": {
+    "at_risk": 4615,
+    "defaults": 3,
+    "closures": 5,
+    "censored": 4607
+  },
+  "max_absolute_error_vs_independent_observed_fraction": 2.0539125955565396e-15,
+  "days_per_month": 30.416666666666668,
+  "input_sha256": "52e847936a33fb3f9ab7a0901f662a624ed747a9c4c081f490dd0c1f3786798a",
+  "protected_sha256": {
+    "analysis/run.py": "127b36966215c4b5c0bf6f87321ce9df85a4969f723ecf17b04d3066fc84b002",
+    "results/hazard_ratios.csv": "8390fc46949fa9327491c5c329173f8db8ee26e9b54da0d59eea45d42b62c5ea",
+    "results/sample_summary.csv": "4b1383fcbe0b9a8882829d713f518623846d8ac954f97c642df5eadb7735947e"
+  },
+  "uncertainty": "No bands; no independence-based or borrower-clustered inference claimed"
+}

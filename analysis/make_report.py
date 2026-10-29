@@ -54,7 +54,7 @@ def main():
 
 In 9,844 Estonian loans originated in 2013–2015, 2,508 first recorded defaults occur within 730 days. Older age and higher income are associated with lower conditional default hazards; new-customer status and longer original scheduled terms are associated with higher hazards. The amount estimate is close to one and its interval includes one. These are explanatory associations, with important qualifications: age shows both PH and functional-form departures, and new-customer status shows a PH departure in the repeated-loan analysis. **The previously suggested original-term PH departure is not reproduced after correcting the rank-time diagnostic for the stratified fit.** This is not a claim that PH has been proved.
 
-No slides, predictive comparisons or performance claims have been made. All numerical results below come from the uploaded data, not the earlier synthetic smoke test.
+No predictive comparisons or performance claims are made. All numerical results below come from the uploaded data, not the earlier synthetic smoke test.
 
 ## 1. Source and definition audit
 
@@ -132,6 +132,9 @@ Input SHA-256: `{provenance['sha256']}`.
 
 Sources: the user-specified Kaggle snapshot and its accessible API metadata/description (saved in `sources/`); the uploaded recorded field values; lifelines 0.30.0 and statsmodels 0.14.6. Bondora's linked [PublicDatasetItem dictionary](https://api.bondora.com/doc/ResourceModel?modelName=PublicDatasetItem&v=1) was inaccessible through this environment. Confirm its historical definitions before presenting a specific arrears threshold, literal full-repayment timing, or definitively original income/term measurement. The calculations are complete for the operational definitions above; these remaining source-definition limitations are explicit, not silently assumed resolved.
 '''
+    timing=R/'timing/summary.md'
+    if timing.exists():
+        report+='\n<!-- DESCRIPTIVE_TIMING_START -->\n'+timing.read_text().replace('(default_cif.png)','(results/timing/default_cif.png)')+'<!-- DESCRIPTIVE_TIMING_END -->\n'
     (ROOT/'REPORT.md').write_text(report)
     print('Wrote REPORT.md from verified real-data outputs.')
 

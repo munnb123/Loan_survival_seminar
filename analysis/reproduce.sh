@@ -10,3 +10,4 @@ PYTHON_BIN="${BONDORA_PYTHON:-python3}"
   --repayment-evidence 'ContractEndDate ONLY for Status=Repaid is a recorded closure proxy, not guaranteed full cash repayment. Financial and LastPaymentOn audit plus stricter closure sensitivity supplied.'
 "$PYTHON_BIN" analysis/verify.py data/Bondora_Estonia_2013_2015.csv.gz
 "$PYTHON_BIN" analysis/make_report.py
+"$PYTHON_BIN" analysis/cumulative_incidence.py
