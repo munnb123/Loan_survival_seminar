@@ -10,8 +10,8 @@ import subprocess
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 BUILD = HERE / "build"
-MAIN_SLIDES = 28
-BACKUP_SLIDES = 2
+MAIN_SLIDES = 30
+BACKUP_SLIDES = 0
 OPTIONAL_SLIDES = {6, 14}
 
 
@@ -20,7 +20,7 @@ def clock(seconds):
 
 
 def frame_sources():
-    text = (HERE/'lecture_main.tex').read_text()+'\n'+(HERE/'backup.tex').read_text()
+    text = (HERE/'lecture_main.tex').read_text()
     frames = re.findall(r'\\begin\{frame\}(?:\[[^\]]*\])?(?:\{([^}]*)\})?(.*?)\\end\{frame\}',text,re.DOTALL)
     assert len(frames)==MAIN_SLIDES+BACKUP_SLIDES
     return frames
@@ -42,8 +42,10 @@ def main():
               "NewCustomerHR": f"{float(hr['new_customer']['HR']):.3f}",
               "NewCustomerLower": f"{float(hr['new_customer']['lower95']):.3f}",
               "NewCustomerUpper": f"{float(hr['new_customer']['upper95']):.3f}",
+              "NewCustomerPercentHigher":f"{100*(float(hr['new_customer']['HR'])-1):.0f}",
               "NewCIFTwentyFour":f"{100*float(timing['new',24]['default_cif']):.1f}",
               "ExistingCIFTwentyFour":f"{100*float(timing['existing',24]['default_cif']):.1f}"}
+    assert [macros[k] for k in ['NewCIFTwentyFour','ExistingCIFTwentyFour','NewCustomerHR','NewCustomerPercentHigher']]==['27.4','21.2','1.445','44']
     (HERE/'audited_values.tex').write_text('% Generated from existing audited CSVs by build.py; no model fitting.\n'+
         ''.join('\\newcommand{\\'+k+'}{'+v+'}\n' for k,v in macros.items()))
     counts = {}
@@ -73,7 +75,7 @@ def main():
         shutil.copyfile(BUILD/f'{source}.pdf',HERE/f'{target}.pdf')
     sources = [ROOT/'REPORT.md',ROOT/'LECTURE_EXAMPLE.md',ROOT/'results/hazard_ratios.csv']
     sources += sorted((ROOT/'results/lecture_figures').glob('*.pdf'))
-    sources += [HERE/'assets/loan_timelines.pdf']
+    sources += [HERE/'assets/loan_timelines.pdf',HERE/'references.md',HERE/'reference_verification.json']
     sources += [HERE/'assets/audited_hazard_ratios.pdf',ROOT/'results/timing/default_cif.pdf',
                 ROOT/'results/timing/horizon_estimates.csv',ROOT/'results/timing/numbers_at_risk.csv']
     frames=frame_sources()
@@ -81,9 +83,9 @@ def main():
               'frame_page_ranges':ranges,'log_checks':'No overfull/underfull boxes, undefined references or missing characters',
               'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}
     notes = ['# Speaker notes — Luke Munnelly',
-             f'\nStandalone lecture for MSc Stochastics and Financial Mathematics students. **{MAIN_SLIDES} main logical slides; 26:40 at a calm pace.** '
-             'Skip optional slides 6 (55 seconds) and 14 (45 seconds) for a **25:00 speaking route**. '
-             'Audience questions and the two backup slides are outside both plans. Timings include the indicated pauses and figure reading, not extra theory or audience discussion. '
+             f'\nStandalone lecture for MSc Stochastics and Financial Mathematics students. **{MAIN_SLIDES} logical slides: 28 teaching slides, Sources, then Questions.** '
+             'Use the **25:00 speaking route**, skipping slides 6 (55 seconds) and 14 (45 seconds) if delivering in the 25-minute slot. Including both explanations gives a calm 26:40 plan. '
+             'Optional-skip guidance and timing are notes-only; no rehearsal labels or backup frames appear in either audience PDF. Sources take 20 seconds within the speaking plan; audience questions are outside it. Timings include the indicated pauses and figure reading. '
              f'The presentation has {counts["presentation"]} overlay-expanded pages; the handout has {counts["handout"]} pages, one per logical slide.\n',
              '## Practical 25-minute route\n',
              f'- After slide 5, skip optional slide 6 and resume slide 7 on presentation PDF page {ranges["presentation"][6][0]}.',
@@ -101,18 +103,24 @@ def main():
             figure = re.search(r'\\fullfigure\{([^}]+)\}',body)
             title = figure.group(1)[3:].replace('_',' ').title() if figure else ('Follow-up timelines' if '\\timelinefigure' in body else ('Descriptive default timing' if '\\timingfigure' in body else ('Adjusted Cox hazard ratios' if '\\resultfigure' in body else 'When Will a Borrower Default?')))
         titles.append(title)
+        # Plain discussion frame has no Beamer title; identify it from its content.
+        if '\\fontsize{32}{38}' in body and 'Questions?' in body:
+            title='Questions?';titles[-1]=title
+        discussion=title=='Questions?'
         seconds = sum(int(n)*m for n,m in zip(timing.split(':'),[60,1])) if i<=MAIN_SLIDES else 0
         span=f'{clock(elapsed)}–{clock(elapsed+seconds)}' if i<=MAIN_SLIDES else 'Backup'
         short='Skip' if i in OPTIONAL_SLIDES else (f'{clock(essential)}–{clock(essential+seconds)}' if i<=MAIN_SLIDES else 'Backup')
+        if discussion:span=short='Discussion — outside speaking time'
         label=str(i) if i<=MAIN_SLIDES else 'B'+str(i-MAIN_SLIDES)
-        notes.append(f'| {label} | {span} | {short} | {timing if i<=MAIN_SLIDES else "—"} | {title} |')
+        notes.append(f'| {label} | {span} | {short} | {timing if i<=MAIN_SLIDES and not discussion else "—"} | {title} |')
         details.append(f'\n## {label}. {title} ({span}; short route: {short})\n\n'+explanation.strip()+'\n')
         elapsed+=seconds
         if i not in OPTIONAL_SLIDES:essential+=seconds
     assert elapsed==1600 and essential==1500, (elapsed,essential)
-    report.update(frame_titles=titles,speaking_seconds=elapsed,slot_route_seconds=essential,optional_main_slides=sorted(OPTIONAL_SLIDES))
+    assert titles[-3:]==['Conclusion','Sources','Questions?'],titles[-3:]
+    report.update(frame_titles=titles,speaking_seconds=elapsed,slot_route_seconds=essential,optional_main_slides=sorted(OPTIONAL_SLIDES),teaching_slides=28,sources_slide=29,questions_slide=30)
     (HERE/'build_report.json').write_text(json.dumps(report,indent=2)+'\n')
-    (HERE/'speaker_notes.md').write_text('\n'.join(notes+details)+'\n'+(HERE/'questions.md').read_text())
+    (HERE/'speaker_notes.md').write_text('\n'.join(notes+details)+'\n'+(HERE/'questions.md').read_text()+'\n'+(HERE/'references.md').read_text())
     print(json.dumps({k:report[k] for k in ['logical_slides','main_slides','backup_slides','pdf_pages','speaking_seconds','slot_route_seconds']},indent=2))
 
 

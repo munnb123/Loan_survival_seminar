@@ -20,6 +20,9 @@ def main():
         subprocess.run(['pdftoppm','-png','-scale-to','1600',str(HERE/f'{name}.pdf'),str(OUT/name)],check=True)
     subprocess.run(['pdftotext','-bbox',str(HERE/'presentation.pdf'),str(OUT/'text.xml')],check=True)
     pages=ET.parse(OUT/'text.xml').getroot().findall('.//x:page',NS)
+    words_all=[w.text for page in pages for w in page.findall('.//x:word',NS)]
+    forbidden={'Optional','Backup:','DefaultDate','ContractEndDate','PH'}
+    assert not forbidden.intersection(words_all),forbidden.intersection(words_all)
     movement=[]; outside=[]; differences=[]
     for n,page in enumerate(pages,1):
         width=float(page.attrib['width']);height=float(page.attrib['height'])
@@ -48,7 +51,9 @@ def main():
         assert {'baseline','multiplier'}<=words, f'Cox equation missing on PDF page {n}'
     result={'presentation_pages_rendered':len(pages),'handout_pages_rendered':report['pdf_pages']['handout'],
             'handout_final_overlay_differences':differences,'overlay_text_movement':movement,
-            'text_outside_page':outside,'Cox_equation_visible_on_all_reveals':True}
+            'text_outside_page':outside,'Cox_equation_visible_on_all_reveals':True,
+            'presenter_only_labels_and_field_names_absent':True,
+            'ending_order':report['frame_titles'][-3:]}
     (HERE/'render_checks.json').write_text(json.dumps(result,indent=2)+'\n')
     assert not differences and not movement and not outside,result
     print(json.dumps(result,indent=2))

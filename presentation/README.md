@@ -2,75 +2,57 @@
 
 **Survival Analysis in Credit Risk — Luke Munnelly**
 
-Standalone lecture for MSc Stochastics and Financial Mathematics students. The talk starts with the lending problem and incomplete follow-up before introducing notation. The audited analysis and empirical figures are unchanged. No autobiographical or thesis slide is included.
+Polished standalone lecture for MSc Stochastics and Financial Mathematics students. The audited analysis and numerical results are unchanged. There are no presenter-only labels, implementation field names or backup frames in the audience PDFs.
 
-## Structure and counts
+## Slides and ending
 
-**28 main logical slides plus 2 essential backup slides.** The presentation PDF has **56 pages** after progressive reveals; the handout has **30 pages**, one per logical slide with all content visible. Main slides occupy 54 presentation pages and backups occupy two.
+**30 logical slides total: 28 teaching slides, Sources, then Questions.** The overlay-expanded presentation has **57 PDF pages**; the handout has **30 pages**, one per logical slide with all content visible. The final page is a minimal “Questions?” slide that stays on screen during discussion.
 
-| Logical slides | Content |
-| --- | --- |
-| 1–4 | Opening timing problem, illustrative outstanding-principal arithmetic and six months of censored exposure |
-| 5–7 | Horizon labels, optional worked labels and why survival/Cox |
-| 8–14 | Event origin, timelines, survival/hazard and optional default-only cumulative-hazard link |
-| 15–20 | Transition to borrower differences, Cox, HRs, PH and risk-set calculation |
-| 21–23 | Audited cohort/endpoints and the new descriptive competing-risk timing figure |
-| 24–27 | Exact contrasts, cleaner adjusted HR plot, interpretation and limitations |
-| 28 | Return to the title with an actual timing result and the adjusted new-customer HR |
-| B1–B2 | Full partial likelihood and existing detailed diagnostics |
+The flow remains lending problem → why survival analysis → censoring/survival/hazard → Cox → descriptive timing and adjusted rate comparisons → conclusion. The empirical transition explicitly distinguishes unadjusted group curves from Cox comparisons accounting for the included characteristics. The early six-month example uses ordinary observation language; risk sets are introduced in the Cox estimation example. Endpoint rules use plain language, with field names retained in notes. Proportional hazards is written out on slides.
 
+The three-part conclusion progressively reveals **WHEN?**, **WHICH BORROWERS?**, and **INTERPRETATION**. The 27.4%/21.2% timing comparison is unadjusted/descriptive under the audited closure proxy. The approximately 44% higher default hazard comes from the separate adjusted HR 1.445. A short visible qualification keeps those meanings distinct. Sources follow; questions do not share the conclusion slide.
 
-The complete figures remain static. The risk-set setup is slide 19; the existing worked-answer PDF appears on the next logical slide. Overlays add whole points or interpretation steps and reserve layout space rather than revealing individual symbols or shifting text.
+## Speaking plan — presenter notes only
 
-## Speaking time and optional skips
+Use the **25:00 route** in `speaker_notes.md`, covering Sources briefly in the final 20 seconds. Skip the retained explanation slides **6 (55 seconds)** and **14 (45 seconds)** if using that route. Including both gives a calm 26:40 plan. Timing and optional status are deliberately not visible on any slide. Audience discussion is outside both plans.
 
-- **Full calm plan: 26:40**, including short pauses, graph reading and worked arithmetic.
-- **25-minute route: skip slides 6 and 14**, saving 55 + 45 = 100 seconds.
-- Audience questions and backup slides are outside both speaking-time plans.
-- After slide 5, resume slide 7 at **presentation PDF page 15**. After slide 13, resume slide 15 at **presentation PDF page 29**. Use the PDF viewer's page-jump control; logical slide numbers differ from overlay page numbers.
-- Both skips are self-contained. Slide 5 already explains why the six-month borrower lacks a twelve-month label. Slide 15 requires no cumulative-hazard notation.
-- Keep the scripted pauses rather than racing through the equations. In the short route, start the Cox equation around 10:00, reach the audited cohort at 15:30, read the descriptive timing figure at 17:35, and begin the final return to the opening question at 24:00.
+- After logical slide 5, resume slide 7 on presentation PDF page **15**.
+- After logical slide 13, resume slide 15 on presentation PDF page **29**.
+- In the short route, conclude from 23:40–24:40, acknowledge Sources from 24:40–25:00, then leave Questions visible.
 
-`speaker_notes.md` gives each slide's duration, both schedules, reveal-specific natural explanations and the skip transitions. These are rehearsal targets, not measured delivery times or a guarantee of fit. The one new empirical addition is a descriptive competing-risks curve; no regression, hypothesis test, model competition or performance metric is added.
+These are rehearsal targets, not measured delivery times. The generated notes give per-slide times, actual reveal order and full answers to likely questions. The two former backup frames have been removed; their partial-likelihood explanation and existing diagnostic details remain only in `questions.md`/`speaker_notes.md`.
 
-## Files
+## Editable sources and deliverables
 
-- `seminar.tex`: style/preamble and main entry point.
-- `lecture_main.tex`: 28 editable main frames with timing and Beamer speaker notes.
-- `backup.tex`: two essential backup frames, with the unchanged audited diagnostic values.
-- `handout.tex`: handout-mode wrapper around the same source.
-- `presentation.pdf`, `handout.pdf`: compiled deliverables.
-- `speaker_notes.md`: generated from the sources' `\talknote{duration}{explanation}` entries.
-- `audited_values.tex`: counts and displayed new-customer estimate read from the existing CSVs.
-- `assets/audited_hazard_ratios.pdf`/`.svg`/`.png`: a simpler presentation-only plot of the unchanged audited CSV, generated by `make_result_figure.py`. Exact contrasts and essential qualifications remain; detailed diagnostics move to notes/limitations.
-- `assets/loan_timelines.pdf`/`.svg`/`.png`: hypothetical four-loan diagram matching this opening, generated by `make_timeline.py`. It does not replace any original figure in `results/`.
-- `build.py`, `review.py`, `build_report.json`, `render_checks.json`: reproducible compilation, source hashes, page counts and rendering/layout checks.
-- `questions.md`: concise answers to six likely audience questions, appended to the generated speaking notes and outside the speaking plan.
-- `PR_DESCRIPTION.md`: prepared description for the presentation branch/PR.
+- `seminar.tex`: entry point, white/navy/teal styling and source inclusions.
+- `lecture_main.tex`: all 30 logical frames, progressive reveals and `\talknote` speaking prompts.
+- `handout.tex`: handout wrapper around the same source.
+- `presentation.pdf`, `handout.pdf`: compiled audience deliverables.
+- `speaker_notes.md`: generated timings/prompts plus reference answers and citations.
+- `questions.md`: anticipated questions and retained technical detail; never displayed as slides.
+- `references.md`, `reference_verification.json`: full bibliography and checked citation/data metadata. No course-note author is invented for an unavailable document.
+- `audited_values.tex`: displayed values generated from the existing audited CSVs, including the conclusion percentages and rounded hazard increase.
+- `make_result_figure.py`, `assets/audited_hazard_ratios.*`: presentation-only version of the unchanged audited HR estimates, with the dots/bars explanation given once on the plot. Important assumption/source qualifications remain in the limitations slide and notes.
+- `make_timeline.py`, `assets/loan_timelines.*`: the existing hypothetical timeline illustration.
+- `build.py`, `review.py`, `build_report.json`, `render_checks.json`: reproducible build and layout checks.
+- `PR_DESCRIPTION.md`: prepared branch/PR summary.
 
-The survival, PH and risk-set figures use relative paths to `../results/lecture_figures/*.pdf`. The descriptive timing figure is `../results/timing/default_cif.pdf`; the simplified HR plot is in `assets/`. Keep `presentation/` in the full repository. All original figures and audited Cox files are preserved. The timing estimator reuses the exact audited cohort and distinguishes default, qualified closure and administrative exit; it does not infer closure from every Cox censor.
+Static figures remain static. Risk-set setup is logical slide 19 and the worked answer is slide 20. Timing curves are slide 23, the adjustment/contrast transition is slide 24, and the HR plot is slide 25. Required aggregate outputs and existing vector figures are referenced through repository-relative paths; keep `presentation/` in the full checkout.
 
 ## Exact build commands
 
-Requirements: Python 3 standard library; TeX Live/MacTeX with Beamer, Latin Modern, AMS math and TikZ; `latexmk`, `pdflatex`; Poppler's `pdfinfo`, `pdftoppm` and `pdftotext`. TeX Live 2025 was used. On macOS, Poppler is available with `brew install poppler`.
+Requirements: Python 3 standard library; TeX Live/MacTeX with Beamer, Latin Modern, AMS math and TikZ; `latexmk`, `pdflatex`; Poppler's `pdfinfo`, `pdftoppm` and `pdftotext`. The delivered PDFs use TeX Live 2025. On macOS, `brew install poppler` supplies the Poppler tools.
 
-To regenerate the descriptive outputs and presentation-only HR plot (requires the pinned analysis environment and exact input CSV.gz):
-
-```sh
-python analysis/cumulative_incidence.py
-python presentation/make_result_figure.py
-```
-
-To compile from committed aggregate outputs/assets without borrower-level data, run from the repository root:
+From the repository root:
 
 ```sh
 python3 presentation/build.py
 python3 presentation/review.py
 ```
 
-The first command refreshes displayed numeric macros from existing audited CSVs, compiles both audience PDFs, checks their logs and counts, and regenerates notes with validated 26:40/25:00 schedules. It **does not fit any model or run statistical tests**. The second renders every PDF page, checks page boundaries and stable text positions, and compares every handout slide with the final presentation reveal. Compilation artifacts and review PNGs remain under the ignored `presentation/build/` directory.
+The build refreshes display macros from existing aggregate CSVs, compiles both PDFs, checks logs/page counts, validates the timing routes and ending order, and regenerates the Markdown notes. It does **not** rerun any statistical analysis. The review renders every page, checks text bounds and stable reveals, compares each handout page with the corresponding final reveal, and checks that forbidden presenter labels/field names/PH abbreviations are absent from the audience PDF.
 
-The underlying LaTeX commands, using committed macros and figure assets, are:
+Equivalent underlying LaTeX commands using committed macros and assets:
 
 ```sh
 cd presentation
@@ -80,27 +62,18 @@ cp build/seminar.pdf presentation.pdf
 cp build/handout.pdf handout.pdf
 ```
 
-The new hypothetical timeline is already committed. To regenerate it using the repository's existing Python plotting dependencies:
+To regenerate only the revised presentation HR asset from the unchanged audited CSV, use the existing pinned plotting environment:
 
 ```sh
-python3 presentation/make_timeline.py
+/workspace/loan-survival-venv/bin/python presentation/make_result_figure.py
 ```
 
-In the prepared cloud machine, use `/workspace/loan-survival-venv/bin/python` for that plotting command. Edit main slide content and notes in `lecture_main.tex`, backup content in `backup.tex`, and style in `seminar.tex`. Then rerun the build. If deliberately restructuring the talk, update the count/timing expectations and optional-slide indices in `build.py`.
+The existing descriptive timing figure remains `results/timing/default_cif.pdf`; it is not recomputed by the presentation build. The full original audit/analysis reproduction commands remain in the root README. No borrower-level data is needed to compile the committed slides. Build logs and page-review PNGs stay under the ignored `presentation/build/` directory.
 
-## Accuracy and review
+## Numerical accuracy and review
 
-Numerical source of truth remains [`REPORT.md`](../REPORT.md), [`LECTURE_EXAMPLE.md`](../LECTURE_EXAMPLE.md) and existing audited `results/` CSVs. The exponential survival/PH illustrations and risk-set beta=log(2) are hypothetical. The new cumulative-incidence curves are explicitly empirical, descriptive and unadjusted, and must not be confused with the hypothetical exponential curve or the adjusted HRs. Binary classification can target a defined horizon but needs appropriate labels; survival methods accommodate timing and right censoring under suitable assumptions. Machine-learning methods can also model survival data; no inherent superiority or predictive-performance claim is made.
+Source of truth: `REPORT.md`, `LECTURE_EXAMPLE.md`, `results/hazard_ratios.csv` and `results/timing/horizon_estimates.csv`. The build checks the displayed 27.4%, 21.2%, HR 1.445 and about 44% directly against those outputs. Timing curves are descriptive, loan-level and unadjusted; hazard ratios are adjusted cause-specific associations among exposed loans. Neither establishes a certain individual date, a causal effect or predictive accuracy.
 
-The empirical interpretation remains a year-stratified cause-specific default hazard among exposed loans, using the audited closure proxy conditional on Repaid status and original monthly-schedule term reconstruction. HRs are conditional associations, not probability ratios or causal effects. S=exp(−H) is visibly confined to the simplified default-only setting. Age/new-customer PH concerns, age nonlinearity, borderline term nonlinearity, approximate tied-date intervals and unresolved source-definition qualifications are retained. The superseded original-term PH finding is not repeated.
+Original closure-proxy and monthly original-term definitions, source currency/income-period uncertainty, age/new-customer proportional-hazards concerns, nonlinearity and approximate tied-date intervals remain in the presentation/notes. Bibliographic details were checked against accessible maintained bibliographies and the Kaggle record; the verification scope is recorded in `references.md` rather than implying unavailable publisher pages were inspected.
 
-Both PDFs compile without LaTeX warnings or over/underfull boxes. Every logical slide and reveal is visually reviewed for readable figures/equations, clipping, overlap and narrative transitions. Every handout page matches its final reveal, with no movement of existing text across overlays. Notes follow the actual reveal sequence. The audited Cox code, input, coefficient tables, diagnostics and original figures remain unchanged. The report/lecture summary add the new descriptive timing outputs. Scientific source limitations from the audit remain; the presentation does not resolve them.
-
-
-## The empirical answer to “when?”
-
-By 24 plotted months, recorded-default cumulative incidence is 27.36% for new-customer loans and 21.20% for existing-customer loans (12 months: 14.29% vs 9.88%). These are unadjusted loan-level descriptions with the audited closure proxy as a competing event. They are not causal effects or validated individual predictions. The unchanged adjusted new-customer HR is 1.445 (approximate borrower-clustered 95% CI 1.308–1.595). It is a relative rate among exposed loans, not a ratio of the plotted incidences.
-
-The deterministic Aalen–Johansen implementation, cause counts, risk table, exact horizon estimates and validation are in `results/timing/`. One month is exactly 730/24 days; the estimates include daily events at/before each time, while risk counts are just before each time. There is no date jitter and no uncertainty band. Repeated borrowers remain present; no independence-based interval is claimed. The total default CIF agrees with the independently counted cumulative event fraction because no administrative censoring occurs before day 730. Eight terminal-day events are processed before administrative censoring that day.
-
-Cox is not inherently incapable of estimating survival curves: fitting its baseline permits that in a default-only setting. With competing closure, actual default probabilities require accounting for both events. No predictive accuracy has been evaluated. All six audience-question answers are in `questions.md` and at the end of `speaker_notes.md`.
+Both PDFs compile without warnings, over/underfull boxes, missing characters or undefined references. Changed slides and all relevant reveals are visually inspected for readability, clipping and overlap. Existing text positions stay fixed across reveals, and every handout slide matches its final reveal. The audit, cohort, model, numerical tables and original figures are unchanged. Nothing has been merged.

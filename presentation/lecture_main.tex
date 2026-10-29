@@ -1,4 +1,4 @@
-% 28 main slides. Optional explanations: slides 6 and 14.
+% 28 teaching slides, then Sources and Questions. Skip guidance is notes-only.
 
 \begin{frame}[plain]
 \vspace{.7cm}
@@ -8,7 +8,7 @@ When Will a Borrower Default?\par}
 {\Large Survival Analysis in Credit Risk\par}
 \vspace{1.2cm}
 {\large\color{teal}Luke Munnelly}
-\talknote{0:20}{Introduce the lending question rather than the method. This is a standalone lecture for MSc Stochastics and Financial Mathematics students. We will use a small audited example to interpret default rates, not compare prediction algorithms. Advance promptly to the two borrowers.}
+\talknote{0:15}{Introduce the lending question rather than the method. This is a standalone lecture for MSc Stochastics and Financial Mathematics students. We will use a small audited example to interpret default rates, not compare prediction algorithms. Advance promptly to the two borrowers.}
 \end{frame}
 
 \begin{frame}{Should these be the same outcome?}
@@ -34,7 +34,7 @@ After 24 payments & \uncover<2->{\texteuro2,400 outstanding}
 \vspace{.5cm}
 \uncover<3->{Earlier default can occur before much principal is repaid.}\par
 \vspace{.3cm}\qual{Assume default just after payment; ignore interest, fees and recoveries.}
-\talknote{0:50}{Use a deliberately hypothetical principal-only schedule: twelve thousand euros, four hundred euros principal repaid each month. Explain the setup before revealing both balances. After three payments, 12000 minus 3 times 400 leaves 10800; after twenty-four payments, 2400 remains. Reveal the final interpretation only after the arithmetic. Earlier default can leave more principal outstanding, which makes timing economically relevant. This is not a calculation of actual credit loss: recoveries, interest and other factors are deliberately omitted. The hypothetical euro units are chosen for teaching, not inferred from Bondora.}
+\talknote{0:45}{Use a deliberately hypothetical principal-only schedule: twelve thousand euros, four hundred euros principal repaid each month. Explain the setup before revealing both balances. After three payments, 12000 minus 3 times 400 leaves 10800; after twenty-four payments, 2400 remains. Reveal the final interpretation only after the arithmetic. Earlier default can leave more principal outstanding, which makes timing economically relevant. This is not a calculation of actual credit loss: recoveries, interest and other factors are deliberately omitted. The hypothetical euro units are chosen for teaching, not inferred from Bondora.}
 \end{frame}
 
 \begin{frame}{What do six months tell us?}
@@ -42,8 +42,8 @@ After 24 payments & \uncover<2->{\texteuro2,400 outstanding}
 Observed for six months; no default so far\par
 \vspace{.65cm}
 \uncover<2->{{\Large $T_D>6$ months}\par
-\vspace{.45cm}Contributes to risk sets while observed.}
-\talknote{0:50}{For this actively observed hypothetical loan, six default-free months tell us T_D is greater than six months, not what its eventual value will be. Reveal the inequality and the risk-set contribution together after describing the history. This loan contributes to the exposed risk sets until its observation ends; it is not discarded and is not assumed to remain default-free forever. A closure would instead remove its exposure through a competing event. We cannot assign a certain individual default date from this partial history.}
+\vspace{.45cm}Provides information for the six months observed.}
+\talknote{0:50}{For this actively observed hypothetical loan, six default-free months tell us T_D is greater than six months, not what its eventual value will be. Reveal the inequality and the observation-information statement together after describing the history. Save the term risk set for the later Cox estimation explanation. Use the loan's six months of observed exposure; it is not discarded and is not assumed to remain default-free forever. A closure would instead remove its exposure through a competing event. We cannot assign a certain individual default date from this partial history.}
 \end{frame}
 
 \begin{frame}{A binary label needs a horizon}
@@ -57,7 +57,6 @@ Observed for six months; no default so far\par
 \end{frame}
 
 \begin{frame}[label=optional-labels]{Which 12-month labels are known?}
-\optionalexplanation
 \vspace{.5cm}
 \begin{center}
 \begin{tabular}{ll}\toprule
@@ -134,13 +133,13 @@ P(t\leq T_D<t+\Delta t\mid T_D\geq t)
 \end{frame}
 
 \begin{frame}[label=optional-cumulative]{From hazard to survival}
-\optionalexplanation\quad\qual{Default-only setting.}
+\qual{Default-only setting.}
 \vspace{.25cm}
 {\Large\[H(t)=\int_0^t h(u)\,du\]}
 \uncover<2->{{\Large\[S(t)=\exp\{-H(t)\}\]}}
 \vspace{.35cm}
 \uncover<2->{\qual{With competing closure, default hazard alone does not determine actual default probabilities.}}
-\talknote{0:45}{OPTIONAL: skip this entire slide to save 45 seconds. It connects two already introduced objects. H accumulates the hazard over time and, in the default-only setting, S equals exp(-H). For the illustrative constant rate, H(t)=0.02t, giving the earlier curve. Reveal the survival equation only after the integral. With competing closure, exp(-H_D) is not the actual event-free survival or actual default probability: those depend on the competing process too. No cumulative-incidence analysis is being added. Continue with slide 15; it does not rely on H notation.}
+\talknote{0:45}{OPTIONAL: skip this entire slide to save 45 seconds. It connects two already introduced objects. H accumulates the hazard over time and, in the default-only setting, S equals exp(-H). For the illustrative constant rate, H(t)=0.02t, giving the earlier curve. Reveal the survival equation only after the integral. With competing closure, exp(-H_D) is not the actual event-free survival or actual default probability: those depend on the competing process too. This equation is not the empirical cumulative-incidence calculation. Continue with slide 15; it does not rely on H notation.}
 \end{frame}
 
 \begin{frame}[label=borrower-characteristics]{From timing to borrower characteristics}
@@ -173,9 +172,9 @@ h(t\mid x)=\underbrace{h_0(t)}_{\text{baseline}}
 =\exp(\beta_{\mathrm{new}})
 \]
 \vspace{.5cm}
-\uncover<2->{If HR $=1.5$: a 50\% higher rate at each $t$, under PH.}\par
+\uncover<2->{If HR $=1.5$: a 50\% higher rate at each $t$.}\par
 \vspace{.4cm}
-\qual{A conditional rate ratio, not a probability ratio or causal effect.}
+\qual{Proportional hazards: the ratio stays constant over time.}
 \talknote{0:50}{The baseline cancels for two otherwise identical borrowers in the same baseline stratum. The customer indicator differs by one, so their relative hazard is exp(beta_new). Explain the equation before revealing the illustrative value of 1.5. That means a fifty percent higher instantaneous rate, not fifty percentage points or a fifty percent higher default probability over a horizon. This value is hypothetical and is not the final Bondora estimate. Under PH the ratio remains constant, even though both hazards may vary, as the next picture shows.}
 \end{frame}
 
@@ -185,7 +184,7 @@ h(t\mid x)=\underbrace{h_0(t)}_{\text{baseline}}
 \end{frame}
 
 \begin{frame}{How does Cox learn relative effects?}
-\qual{Illustrative: three borrowers at risk just before one default.}
+\qual{Illustrative risk set: three borrowers just before one default.}
 \vspace{.65cm}
 \begin{columns}[T,onlytextwidth]
 \column{.29\textwidth}\centering\textcolor{teal}{\Large A}\par\vspace{.3cm}
@@ -197,12 +196,12 @@ New\par customer\par\vspace{.4cm}Relative risk $e^\beta$
 \end{columns}
 \vspace{.6cm}
 \centering Which borrower accounts for this default?
-\talknote{1:00}{Introduce a separate teaching risk set, not the original three opening histories. All borrowers are still exposed just before this default time, in the same baseline stratum, and other covariates are identical. Their weights are one, one and exp(beta). Explain that we condition on one default occurring and ask which borrower it belongs to. Ask rhetorically what fraction of the total weight belongs to C, then pause for three seconds. Do not advance to the worked answer until the setup is understood.}
+\talknote{1:00}{Introduce a separate teaching example, not the original three opening histories. Call the collection of exposed borrowers just before this default a risk set. All borrowers are still exposed just before this default time, in the same baseline stratum, and other covariates are identical. Their weights are one, one and exp(beta). Explain that we condition on one default occurring and ask which borrower it belongs to. Ask rhetorically what fraction of the total weight belongs to C, then pause for three seconds. Do not advance to the worked answer until the setup is understood.}
 \end{frame}
 
 \begin{frame}[plain]
 \fullfigure{04_cox_risk_set}
-\talknote{1:30}{Now show the answer: C's conditional share is exp(beta) divided by 2+exp(beta). Point to the symbolic expression before explaining the numerical example. With beta=log(2), chosen only for illustration, the weights are one, one and two, so C receives half of the total weight. Pause to allow the arithmetic to settle. This is conditional on one event occurring now, not a probability of default over a horizon. Cox combines comparisons like this across observed event times to estimate relative effects; the common baseline cancels. Full partial likelihood and the existing Efron handling of tied daily defaults are left to backup notes.}
+\talknote{1:30}{Now show the answer: C's conditional share is exp(beta) divided by 2+exp(beta). Point to the symbolic expression before explaining the numerical example. With beta=log(2), chosen only for illustration, the weights are one, one and two, so C receives half of the total weight. Pause to allow the arithmetic to settle. This is conditional on one event occurring now, not a probability of default over a horizon. Cox combines comparisons like this across observed event times to estimate relative effects; the common baseline cancels. Full partial likelihood and the existing Efron handling of tied daily defaults are left to speaker notes.}
 \end{frame}
 
 \begin{frame}{The audited Bondora cohort}
@@ -222,40 +221,43 @@ Follow-up: at most 730 days from origination\par
 
 \begin{frame}{Follow-up uses audited endpoints}
 \begin{itemize}\setlength\itemsep{.45cm}
-\item<1-> Default: first recorded \texttt{DefaultDate}.
-\item<2-> Closure proxy: \texttt{ContractEndDate}\par
-only when snapshot \texttt{Status=Repaid}.
-\item<3-> Stop at the first exit or 730 days.
+\item<1-> First recorded default date.
+\item<2-> Recorded contract ending for loans labelled repaid.
+\item<3-> Follow-up ends at the first qualifying exit or 730 days.
 \end{itemize}
 \vspace{.35cm}
-\qual{Closure is not guaranteed full cash repayment. The source default threshold is unverified.}
-\talknote{1:05}{Keep this operational definition short. A later repaid status does not erase an earlier recorded default. ContractEndDate occurs on Current and Late loans too and can be a future date, so not every such value is a repayment. The audit restricts the nondefault exit to a closure proxy in loans labeled Repaid; write-offs mean this still need not be literal full cash repayment. The general stopping rule also includes reporting cutoff, but for this cohort the 730-day cap comes first. Keep the uncertainty about the source's arrears threshold explicit; do not assert a sixty- or ninety-day definition.}
+\qual{Closure is a proxy, not guaranteed full repayment.}
+\talknote{1:05}{Use ordinary language on the slide. The first recorded default is DefaultDate. The recorded contract ending is ContractEndDate only when snapshot Status=Repaid. A later repaid label does not erase an earlier default; the audit retains first-default timing. ContractEndDate also occurs on Current and Late loans, sometimes in the future, so do not treat every contract date as actual repayment. The general stopping rule also includes the reporting cutoff, but every analyzed loan can reach the 730-day cap first. Closure remains a competing-event proxy and can coexist with write-offs. The source's exact default arrears threshold is unverified. No endpoint or boundary rule has changed.}
 \end{frame}
 
 \begin{frame}[plain]
 \timingfigure
-\talknote{1:50}{Move from endpoint definitions to when the recorded defaults accumulate. These are unadjusted descriptive cumulative-incidence curves, using Aalen–Johansen with the audited closure proxy as a competing event. The vertical axis is the estimated proportion of loans experiencing recorded default by each time before a competing closure. Point to twelve months: about 14.3 percent for new-customer loans and 9.9 percent for existing-customer loans. At twenty-four months the figures are about 27.4 and 21.2 percent. Read one horizon slowly rather than listing every number. The at-risk table includes observed loans immediately before each grid time. The month scale maps 730 days to 24 months. All have full potential follow-up, so these point estimates also agree with directly counted event fractions. No bands are shown: repeated borrowers are present and no independence-based uncertainty is being presented. New and existing customers differ in other covariates and vintages; these descriptive differences are not causal and are not the adjusted Cox HR. The next covariates/HR slides answer the complementary question about conditional rates.}
+\talknote{1:40}{Move from endpoint definitions to when the recorded defaults accumulate. These are unadjusted descriptive cumulative-incidence curves, using Aalen–Johansen with the audited closure proxy as a competing event. The vertical axis is the estimated proportion of loans experiencing recorded default by each time before a competing closure. Point to twelve months: about 14.3 percent for new-customer loans and 9.9 percent for existing-customer loans. At twenty-four months the figures are about 27.4 and 21.2 percent. Read one horizon slowly rather than listing every number. The at-risk table includes observed loans immediately before each grid time. The month scale maps 730 days to 24 months. All have full potential follow-up, so these point estimates also agree with directly counted event fractions. No bands are shown: repeated borrowers are present and no independence-based uncertainty is being presented. New and existing customers differ in other covariates and vintages; these descriptive differences are not causal and are not the adjusted Cox HR. The next covariates/HR slides answer the complementary question about conditional rates.}
 \end{frame}
 
-\begin{frame}{Five predictors and their contrasts}
-\begin{center}
+\begin{frame}{From timing curves to adjusted rates}
+\textcolor{teal}{Timing curves: unadjusted group differences.}\par
+\vspace{.2cm}
+\uncover<2->{Cox: rates adjusted for these characteristics.}\par
+\vspace{.2cm}
+\uncover<2->{\begin{center}
 \begin{tabular}{ll}
-Age & $+10$ years\\[.28cm]
-Income & Doubling\\[.28cm]
-Amount & $+1{,}000$ recorded monetary units\\[.28cm]
-Original scheduled term & $+12$ months\\[.28cm]
+Age & $+10$ years\\[.13cm]
+Income & Doubling\\[.13cm]
+Amount & $+1{,}000$ recorded monetary units\\[.13cm]
+Original scheduled term & $+12$ months\\[.13cm]
 New-customer status & Yes vs no
 \end{tabular}
-\end{center}
-\vspace{.3cm}
+\end{center}}
+\vspace{.15cm}
 \qual{Year-stratified baseline; borrower-clustered intervals.}\par
-\qual{Monthly original-schedule proxy; source currency/income period unverified.}
-\talknote{0:55}{Read these as comparison units, not raw coefficient sizes. The model uses log income, and multiplying its coefficient by log(2) gives the displayed doubling contrast. Original scheduled term is reconstructed from FirstPaymentDate to MaturityDate_Original assuming monthly installments, not from revised maturity. Amount and income are used as recorded; the existing plot's euro label has the report's unverified-currency qualification. Baseline hazards differ by origination year and intervals cluster repeated borrowers. We use this one existing Cox model; no predictors, fits or selection procedures are added.}
+\qual{Original monthly-schedule proxy; source currency/income period unverified.}
+\talknote{0:55}{Make the distinction explicit: The timing curves show unadjusted differences between customer groups. Cox regression compares their default rates while accounting for the other included characteristics. The descriptive curves are not Cox predictions. On the first reveal refer back to the new/existing customer groups; on the second introduce adjustment and the five contrasts together. Read these as comparison units: age per ten years, income doubling, amount per thousand recorded monetary units, original scheduled term per twelve months and new versus existing customer. Income uses a log transform; the doubling contrast rescales the coefficient by log(2). Original term comes from FirstPaymentDate to MaturityDate_Original assuming monthly installments, not revised maturity. Currency/income-period definitions remain unverified.}
 \end{frame}
 
 \begin{frame}[plain]
 \resultfigure
-\talknote{1:10}{Now ask which characteristics are associated with the conditional rate, adjusting for the included covariates and origination-year baseline. This cleaner figure reads the same final audited coefficients and borrower-clustered 95 percent intervals; none were refitted. Orient the audience to one and the logarithmic scale. Contrast it explicitly with the preceding unadjusted timing graph: these hazard ratios are adjusted relative rates among exposed loans, not differences or ratios of cumulative incidences. Exact predictor contrasts remain visible. Daily ties make the intervals approximate, and age/new-customer PH concerns remain visible. Detailed nonlinearity, diagnostic and source-definition caveats follow in limitations and backup notes.}
+\talknote{1:10}{Now ask which characteristics are associated with the conditional rate, adjusting for the included covariates and origination-year baseline. This cleaner figure reads the same final audited coefficients and borrower-clustered 95 percent intervals; none were refitted. Explain the plot symbols once here: dots are hazard-ratio estimates, and bars are approximate borrower-clustered 95 percent confidence intervals. Orient the audience to one and the logarithmic scale. Contrast it explicitly with the preceding unadjusted timing graph: these hazard ratios are adjusted relative rates among exposed loans, not differences or ratios of cumulative incidences. Exact predictor contrasts remain visible. Daily ties make the intervals approximate, and age/new-customer proportional-hazards concerns remain on the limitations slide and in the notes. Detailed nonlinearity, diagnostic and source-definition caveats follow in limitations and speaker notes.}
 \end{frame}
 
 \begin{frame}{New versus existing customer}
@@ -268,28 +270,53 @@ New-customer status & Yes vs no
 among loans still exposed.}\par
 \vspace{.45cm}
 \uncover<2->{\qual{Association, not a default-probability ratio or causal effect.}\par
-\qual{PH concern: this single HR is a model summary.}}
+\qual{Proportional hazards concern: this HR is a summary.}}
 \talknote{1:10}{Show and explain the estimate first. On the next reveal, subtract one from the unrounded 1.4445 and convert to about forty-four percent. This is a conditional instantaneous default rate among loans still exposed, adjusting for the included covariates and origination-year baseline. It is not forty-four percentage points, a default-probability ratio or a causal effect of being new. The corrected diagnostics flag new-customer PH concerns in the full sample, so the single constant HR compresses a possibly time-varying association. Give that qualification before moving to general limitations.}
 \end{frame}
 
 \begin{frame}{Where interpretation is limited}
 \begin{itemize}\setlength\itemsep{.55cm}
-\item<1-> PH concerns: age and new-customer status.
+\item<1-> Proportional hazards concerns: age and new customers.
 \item<2-> Nonlinearity; approximate tied-date intervals.
 \item<3-> Recorded endpoints and measurement proxies.
 \end{itemize}
-\talknote{1:20}{One short point per reveal. Corrected elapsed-rank and log-time diagnostics flag age and new-customer status; the superseded original-term PH finding is not repeated. Age also shows nonlinearity, while term has a borderline nonlinear departure, a separate assumption. Daily ties make the borrower-clustered Wald intervals approximate. The full-sample PH tests are approximate and not cluster adjusted. The source arrears threshold, full-repayment timing, monetary measurement definitions and original monthly-schedule proxy remain qualified. Detailed p-values and sensitivity checks are in backup material; do not turn this into a new modelling exercise.}
+\talknote{1:20}{One short point per reveal. Corrected elapsed-rank and log-time diagnostics flag age and new-customer status; the superseded original-term PH finding is not repeated. Age also shows nonlinearity, while term has a borderline nonlinear departure, a separate assumption. Daily ties make the borrower-clustered Wald intervals approximate. The full-sample PH tests are approximate and not cluster adjusted. The source arrears threshold, full-repayment timing, monetary measurement definitions and original monthly-schedule proxy remain qualified. Detailed p-values and sensitivity checks are in the speaker notes; do not turn this into a new modelling exercise.}
 \end{frame}
 
-\begin{frame}{When will a borrower default?}
-\begin{itemize}\setlength\itemsep{.4cm}
-\item<1-> No certain individual default date.
-\item<2-> By 24 months: \NewCIFTwentyFour\% new vs \ExistingCIFTwentyFour\% existing.
-\item<3-> Adjusted new-customer HR: $\NewCustomerHR$.
-\end{itemize}
+\begin{frame}{Conclusion}
+\uncover<1->{\textcolor{teal}{\footnotesize\bfseries WHEN?}\par
+By two years, recorded default reached \NewCIFTwentyFour\% for new customers and \ExistingCIFTwentyFour\% for existing customers.\par}
+\vspace{.32cm}
+\uncover<2->{\textcolor{teal}{\footnotesize\bfseries WHICH BORROWERS?}\par
+New customers had an adjusted default hazard about \NewCustomerPercentHigher\% higher.\par}
+\vspace{.32cm}
+\uncover<3->{\textcolor{teal}{\footnotesize\bfseries INTERPRETATION}\par
+We estimate patterns over time, not a certain individual default date.\par}
+\vspace{.25cm}
+\qual{Timing estimates are descriptive. Hazard ratios are adjusted associations.}
+\talknote{1:00}{Answer the opening question in three calm steps. First, the observed accumulation: by the study's two-year, 730-day horizon, recorded default reached about 27.4 percent for new-customer loans and 21.2 percent for existing-customer loans. These are unadjusted loan-level descriptive estimates under the audited closure proxy. Second, the separate adjusted association: the unchanged new-customer hazard ratio is 1.4445, displayed as 1.445, or about 44 percent higher conditional default hazard among exposed loans. This is not a ratio of the two cumulative proportions or a causal effect. Third, describe patterns over time without assigning a certain individual default date. Keep detailed qualifications in the notes; do not read them all aloud. Cox can estimate survival with its baseline in a default-only setting; actual probabilities with competing closure need both event processes. Advance to Sources briefly, then leave the separate Questions slide visible during discussion.}
+\end{frame}
+
+\begin{frame}{Sources}
+\small
+\href{https://www.kaggle.com/datasets/sid321axn/bondora-peer-to-peer-lending-loan-data}{\textbf{Bondora loan data}} --- snapshot 20 July 2021, via Kaggle.\par
+\vspace{.3cm}
+\textbf{Cox (1972).} Regression models and life-tables.\par
+\qual{\emph{Journal of the Royal Statistical Society B} 34, 187--220.}\par
+\vspace{.3cm}
+\textbf{Aalen \& Johansen (1978).} Empirical transition matrix.\par
+\qual{\emph{Scandinavian Journal of Statistics} 5, 141--150.}\par
+\vspace{.3cm}
+\textbf{Putter, Fiocco \& Geskus (2007).} Competing risks.\par
+\qual{\emph{Statistics in Medicine} 26, 2389--2430.}\par
 \vspace{.35cm}
-\uncover<2->{\qual{Timing proportions are unadjusted/descriptive under the closure proxy.}}\par
-\uncover<3->{\qual{HR is a conditional association, not a probability ratio or causal effect.}}\par
-\vspace{.3cm}\uncover<3->{\textcolor{teal}{Questions}}
-\talknote{1:00}{Return to the title and opening borrowers. A three-month default and a two-year default occur after different amounts of exposure and repayment; six observed default-free months do not reveal an eventual event date. We cannot assign certainty to an individual date, but we can describe accumulation: by 24 months about 27.4 percent of new-customer loans and 21.2 percent of existing-customer loans have a recorded default under the audited closure proxy. That comparison is unadjusted. Separately the unchanged Cox HR of 1.445 relates new-customer status to the adjusted conditional default rate, with its PH qualification. Cox is not inherently unable to estimate survival: with a fitted baseline it can do so in a default-only setting. Actual default probabilities under competing closure require accounting for both events. No predictive accuracy has been evaluated. End the speaking plan here and invite questions; questions and backups are outside the timing.}
+\textcolor{teal}{Reproducible analysis:}\par
+\href{https://github.com/munnb123/Loan_survival_seminar/tree/presentation/msc-survival-seminar}{\texttt{munnb123/Loan\_survival\_seminar}}
+\talknote{0:20}{Cover sources briefly rather than reading every citation. The actual dataset is Bondora Peer to Peer Lending Loan Data, distributed on Kaggle by sid321axn, with the 20 July 2021 reporting snapshot used here. Cox's 1972 paper supplies the regression model; Aalen and Johansen's 1978 paper supplies the transition-probability estimator; Putter, Fiocco and Geskus's 2007 tutorial supports the competing-risk interpretation. Full titles and bibliographic verification are in references.md. The repository link provides the exact audited numerical outputs and reproducible code. No course-note document was supplied in the available files, and no course-note author is inferred. End the speaking plan after this brief acknowledgement and advance to Questions.}
+\end{frame}
+
+\begin{frame}[plain]
+\centering
+{\fontsize{32}{38}\selectfont\color{navy}Questions?\par}
+\talknote{0:00}{Discussion is outside the planned speaking time. Leave this minimal slide on screen throughout questions. Do not advance to a list of anticipated questions or to backup frames; the useful answers and detailed method/diagnostic notes are in questions.md and the generated speaker_notes.md.}
 \end{frame}

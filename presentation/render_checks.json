@@ -1,8 +1,14 @@
 {
-  "presentation_pages_rendered": 56,
+  "presentation_pages_rendered": 57,
   "handout_pages_rendered": 30,
   "handout_final_overlay_differences": [],
   "overlay_text_movement": [],
   "text_outside_page": [],
-  "Cox_equation_visible_on_all_reveals": true
+  "Cox_equation_visible_on_all_reveals": true,
+  "presenter_only_labels_and_field_names_absent": true,
+  "ending_order": [
+    "Conclusion",
+    "Sources",
+    "Questions?"
+  ]
 }

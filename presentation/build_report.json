@@ -1,9 +1,9 @@
 {
   "logical_slides": 30,
-  "main_slides": 28,
-  "backup_slides": 2,
+  "main_slides": 30,
+  "backup_slides": 0,
   "pdf_pages": {
-    "presentation": 56,
+    "presentation": 57,
     "handout": 30
   },
   "frame_page_ranges": {
@@ -102,31 +102,31 @@
       ],
       [
         45,
-        45
-      ],
-      [
-        46,
         46
       ],
       [
         47,
-        48
+        47
       ],
       [
-        49,
-        51
+        48,
+        49
       ],
       [
-        52,
-        54
+        50,
+        52
       ],
       [
-        55,
+        53,
         55
       ],
       [
         56,
         56
+      ],
+      [
+        57,
+        57
       ]
     ],
     "handout": [
@@ -263,7 +263,9 @@
     "results/lecture_figures/04_cox_risk_set.pdf": "81768af556ddcbbe86be3b83efa6a1e737b1309663592179a8f1bda8f9a75406",
     "results/lecture_figures/05_audited_hazard_ratios.pdf": "41b9c2efbd2eedad6b470ee8e37181dadfcaf39e6b250a2f48a5a3b92960d307",
     "presentation/assets/loan_timelines.pdf": "b31f1c31691429ed24a390e88a0180f0200f2cf7a3ae54d20894e180acab5774",
-    "presentation/assets/audited_hazard_ratios.pdf": "84051382321f55970cc4c6b57ff358628e4bc50c7759aea5085e2043025b8cb5",
+    "presentation/references.md": "fa2907b092c45695850b2363c10f43dd656d03108ebc32bb27437d98f37e25d4",
+    "presentation/reference_verification.json": "8d12b52884f905cd98abc1d7bd82edf1e6fc56533c50b224888910f41c108bbb",
+    "presentation/assets/audited_hazard_ratios.pdf": "4405ceb517ca0a5658085d2d8ebcc0d9a96178c73d90099d0b85fe567f18b075",
     "results/timing/default_cif.pdf": "fb15a9ba1027a0877530676bbb7f9dd28df2a815be137571361a342fee2b36dd",
     "results/timing/horizon_estimates.csv": "17a91838f8fd68ec232b896fc22220711759f4fa7f801609152e46806eb55d06",
     "results/timing/numbers_at_risk.csv": "6d37ef2b52f43ebb699897a9cbbe313a7d7516febadac5102fcbb591b674cad1"
@@ -292,18 +294,21 @@
     "The audited Bondora cohort",
     "Follow-up uses audited endpoints",
     "Descriptive default timing",
-    "Five predictors and their contrasts",
+    "From timing curves to adjusted rates",
     "Adjusted Cox hazard ratios",
     "New versus existing customer",
     "Where interpretation is limited",
-    "When will a borrower default?",
-    "Backup: partial likelihood",
-    "Backup: corrected diagnostics"
+    "Conclusion",
+    "Sources",
+    "Questions?"
   ],
   "speaking_seconds": 1600,
   "slot_route_seconds": 1500,
   "optional_main_slides": [
     6,
     14
-  ]
+  ],
+  "teaching_slides": 28,
+  "sources_slide": 29,
+  "questions_slide": 30
 }

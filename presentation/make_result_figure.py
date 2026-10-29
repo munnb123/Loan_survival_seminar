@@ -32,8 +32,8 @@ def main():
     ax.set_yticks(range(5),labels);ax.tick_params(axis='y',length=0,pad=16)
     for edge in ['top','right','left']:ax.spines[edge].set_visible(False)
     ax.spines['bottom'].set_color('#718096');ax.set_xlabel('Hazard ratio (log scale)',labelpad=14)
-    fig.text(.07,.14,'Conditional associations · Borrower-clustered 95% CIs; approximate with tied dates.',fontsize=17)
-    fig.text(.07,.07,'PH concerns: age/new customers. Source monetary currency/income period unverified.',fontsize=16,color='#596878')
+    fig.text(.07,.14,'Dots: hazard-ratio estimates · Bars: approximate borrower-clustered 95% confidence intervals.',fontsize=16)
+    fig.text(.07,.07,'Adjusted associations. Source monetary currency/income period unverified.',fontsize=16,color='#596878')
     out=ROOT/'presentation/assets'
     for ext in ['pdf','svg','png']:fig.savefig(out/f'audited_hazard_ratios.{ext}',dpi=240,facecolor='white')
     plt.close(fig)

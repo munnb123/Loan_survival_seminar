@@ -1,0 +1,53 @@
+{
+  "dataset_record": {
+    "title": "Bondora Peer to Peer Lending Loan Data",
+    "ref": "sid321axn/bondora-peer-to-peer-lending-loan-data",
+    "ownerName": "Manu Siddhartha",
+    "ownerRef": "sid321axn",
+    "lastUpdated": "2021-07-23T14:59:18.813Z",
+    "licenseName": "CC0: Public Domain"
+  },
+  "bibliographic_checks": [
+    {
+      "reference": "Cox (1972), JRSS B 34, 187–220",
+      "checked_fields": [
+        "author",
+        "year",
+        "title",
+        "journal",
+        "volume",
+        "pages"
+      ],
+      "source": "https://github.com/therneau/survival/blob/b76de62301f2ed4efcdbd8c062acc6759a54e511/vignettes/refer.bib",
+      "retrieved_sha256": "cbeb7e6055e28ef8db7cb2f8020c4e9acfc79e7d7285bdfa1819441d127482c6"
+    },
+    {
+      "reference": "Aalen and Johansen (1978), Scandinavian Journal of Statistics 5, 141–150",
+      "checked_fields": [
+        "authors",
+        "year",
+        "title",
+        "journal",
+        "volume",
+        "pages"
+      ],
+      "source": "https://github.com/cran/etm/blob/db40647f7f522b67434a3eb635e89c0dee1ecc23/man/etm.Rd",
+      "retrieved_sha256": "6cf84c857c0165ba89ef125ced2acaa018977796cf048f5539fc8d687146361f"
+    },
+    {
+      "reference": "Putter, Fiocco and Geskus (2007), Statistics in Medicine 26, 2389–2430",
+      "checked_fields": [
+        "authors",
+        "year",
+        "title",
+        "journal",
+        "volume",
+        "pages"
+      ],
+      "source": "https://github.com/hputter/mstate/blob/406e5856790c1649a7bcf03fff9a0afa247e7265/vignettes/Tutorial.bib",
+      "retrieved_sha256": "c43159b9a6dcf2e81944229f4d4bea393b071cf49cd7373373a1b29d9e15e16a"
+    }
+  ],
+  "verification_scope": "Accessible maintained package/author bibliographies and companion documentation; publisher/Crossref/JSTOR requests blocked. No unchecked issue or DOI fields are cited.",
+  "course_notes": "No supplied course-note document available; no author invented."
+}
