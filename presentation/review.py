@@ -41,12 +41,14 @@ def main():
             for text,coords in first.items():
                 if text in later and not coords<=later[text]:movement.append([slide,p,text])
     # Ensure the displayed baseline/relative-effect labels survived TeX frame parsing.
-    for n in [15,16]:
+    cox_frame=report['frame_titles'].index('The Cox model')
+    a,b=report['frame_page_ranges']['presentation'][cox_frame]
+    for n in range(a,b+1):
         words={w.text for w in pages[n-1].findall('.//x:word',NS)}
-        assert {'baseline','relative','effect'}<=words, f'Cox equation missing on PDF page {n}'
-    result={'presentation_pages_rendered':len(pages),'handout_pages_rendered':22,
+        assert {'baseline','multiplier'}<=words, f'Cox equation missing on PDF page {n}'
+    result={'presentation_pages_rendered':len(pages),'handout_pages_rendered':report['pdf_pages']['handout'],
             'handout_final_overlay_differences':differences,'overlay_text_movement':movement,
-            'text_outside_page':outside,'Cox_equation_visible_on_both_reveals':True}
+            'text_outside_page':outside,'Cox_equation_visible_on_all_reveals':True}
     (HERE/'render_checks.json').write_text(json.dumps(result,indent=2)+'\n')
     assert not differences and not movement and not outside,result
     print(json.dumps(result,indent=2))

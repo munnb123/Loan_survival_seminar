@@ -2,44 +2,65 @@
 
 **Survival Analysis in Credit Risk — Luke Munnelly**
 
-A standalone 25-minute MSc seminar. No thesis reference is included. The existing audited analysis, numerical results, report and vector figures are unchanged.
+Standalone lecture for MSc Stochastics and Financial Mathematics students. The talk starts with the lending problem and incomplete follow-up before introducing notation. The audited analysis and empirical figures are unchanged. No autobiographical or thesis slide is included.
 
-## Deliverables and counts
+## Structure and counts
 
-- `presentation.pdf`: **39 PDF pages**, including progressive reveals and the two backup slides.
-- `handout.pdf`: **22 PDF pages**, one per logical slide with all content visible.
-- **20 main logical slides** (including title and conclusion) plus **2 optional backup slides**. The 20 main slides occupy 37 presentation pages; backup occupies two more.
-- `seminar.tex`: editable main source, including Beamer speaker notes and reserved-space overlays.
-- `handout.tex`: handout-mode wrapper around exactly the same source.
-- `speaker_notes.md`: natural speaking prompts and a slide-by-slide schedule totalling **25:00**; backups are outside this timing.
-- `audited_values.tex`: displayed cohort counts and new-customer estimate generated directly from audited CSVs.
-- `build.py`: reproducible build and validation; no models, tests or statistical analyses are added or run.
-- `build_report.json`: page counts, frame-to-page ranges, checked log conditions and hashes of the unchanged numerical/figure sources.
-- `review.py` and `render_checks.json`: reproducible checks of all rendered pages, overlay text positions, handout equivalence and page boundaries.
+**26 main logical slides plus 2 essential backup slides.** The presentation PDF has **52 pages** after progressive reveals; the handout has **28 pages**, one per logical slide with all content visible. Main slides occupy 50 presentation pages and backups occupy two.
 
-Figures use reliable paths to `../results/lecture_figures/*.pdf`. Keep this directory inside the repository; copying only `presentation/` is insufficient.
+| Logical slides | Content |
+| --- | --- |
+| 1–3 | Opening: default at three months vs two years; a third borrower observed for only six months |
+| 4–6 | Binary-horizon labels, the optional worked-label example, and why use survival analysis/Cox here |
+| 7–10 | Event and time origin, right censoring versus competing closure, survival function and curve |
+| 11–13 | Hazard in words, mathematical rate definition, optional cumulative-hazard connection |
+| 14–19 | Borrower characteristics, Cox baseline/multiplier, HRs, PH illustration and risk-set calculation |
+| 20–25 | Audited cohort, endpoint definitions, exact predictor contrasts, empirical HRs and limitations |
+| 26 | Explicit return to the three opening borrowers; conclusion and questions |
+| B1–B2 | Partial likelihood and existing corrected diagnostics/sensitivity qualifications |
 
-## Build exactly
+The complete figures remain static. The risk-set setup is slide 18; the existing worked-answer PDF appears on the next logical slide. Overlays add whole points or interpretation steps and reserve layout space rather than revealing individual symbols or shifting text.
 
-Requirements: Python 3 (standard library only), a LaTeX installation with Beamer, Latin Modern, AMS math and TikZ, `latexmk`, `pdflatex`, and Poppler's `pdfinfo`. The delivered PDFs were built with TeX Live 2025. On macOS these are available through a TeX distribution such as MacTeX, with `pdfinfo` supplied by `brew install poppler`.
+## Speaking time and optional skips
+
+- **Full calm plan: 26:40**, including short pauses, graph reading and worked arithmetic.
+- **25-minute route: skip slides 5 and 13**, saving 55 + 45 = 100 seconds.
+- Audience questions and backup slides are outside both speaking-time plans.
+- After slide 4, resume slide 6 at **presentation PDF page 12**. After slide 12, resume slide 14 at **presentation PDF page 26**. Use the PDF viewer's page-jump control; logical slide numbers differ from overlay page numbers.
+- Both skips are self-contained. Slide 4 already explains why the six-month borrower lacks a twelve-month label. Slide 14 requires no cumulative-hazard notation.
+- Keep the scripted pauses rather than racing through the equations. In the short route, start the Cox equation around 10:50, reach the audited cohort at 16:50, and begin the final return to the opening question at 24:10.
+
+`speaker_notes.md` gives each slide's duration, both schedules, reveal-specific natural explanations and the skip transitions. These are rehearsal targets, not measured delivery times or a guarantee of fit. No advanced material or extra empirical analysis has been introduced to extend the talk.
+
+## Files
+
+- `seminar.tex`: style/preamble and main entry point.
+- `lecture_main.tex`: 26 editable main frames with timing and Beamer speaker notes.
+- `backup.tex`: two essential backup frames, with the unchanged audited diagnostic values.
+- `handout.tex`: handout-mode wrapper around the same source.
+- `presentation.pdf`, `handout.pdf`: compiled deliverables.
+- `speaker_notes.md`: generated from the sources' `\talknote{duration}{explanation}` entries.
+- `audited_values.tex`: counts and displayed new-customer estimate read from the existing CSVs.
+- `assets/loan_timelines.pdf`/`.svg`/`.png`: hypothetical four-loan diagram matching this opening, generated by `make_timeline.py`. It does not replace any original figure in `results/`.
+- `build.py`, `review.py`, `build_report.json`, `render_checks.json`: reproducible compilation, source hashes, page counts and rendering/layout checks.
+- `PR_DESCRIPTION.md`: prepared description for the presentation branch/PR.
+
+The four other figures use reliable relative paths to `../results/lecture_figures/*.pdf`. Keep `presentation/` in the full repository. The original timeline PDF and all audited model files are preserved, even though this revision uses a new timeline for narrative consistency.
+
+## Exact build commands
+
+Requirements: Python 3 standard library; TeX Live/MacTeX with Beamer, Latin Modern, AMS math and TikZ; `latexmk`, `pdflatex`; Poppler's `pdfinfo`, `pdftoppm` and `pdftotext`. TeX Live 2025 was used. On macOS, Poppler is available with `brew install poppler`.
 
 From the repository root:
 
 ```sh
 python3 presentation/build.py
-```
-
-To render every page and repeat the layout/handout checks:
-
-```sh
 python3 presentation/review.py
 ```
 
-This additional check requires Poppler's `pdftoppm` and `pdftotext` and leaves review images in `presentation/build/review/`.
+The first command refreshes displayed numeric macros from existing audited CSVs, compiles both audience PDFs, checks their logs and counts, and regenerates notes with validated 26:40/25:00 schedules. It **does not fit any model or run statistical tests**. The second renders every PDF page, checks page boundaries and stable text positions, and compares every handout slide with the final presentation reveal. Compilation artifacts and review PNGs remain under the ignored `presentation/build/` directory.
 
-This refreshes the audited display macros, runs both versions through `latexmk`, copies the finished PDFs into this directory, checks both LaTeX logs, verifies the logical/page counts, and regenerates the Markdown speaker notes from `\talknote` entries in `seminar.tex`. Compilation logs and auxiliaries are retained in the ignored `presentation/build/` directory. No statistical calculation is rerun.
-
-The equivalent underlying LaTeX commands, using the committed audited macros, are:
+The underlying LaTeX commands, using committed macros and figure assets, are:
 
 ```sh
 cd presentation
@@ -49,20 +70,18 @@ cp build/seminar.pdf presentation.pdf
 cp build/handout.pdf handout.pdf
 ```
 
-Edit slide content and its `\talknote{duration}{explanation}` in `seminar.tex`. Edit this source rather than the generated notes or number macros. The build validates the present 20+2 structure and 25-minute schedule; update those validation expectations if intentionally restructuring the talk.
+The new hypothetical timeline is already committed. To regenerate it using the repository's existing Python plotting dependencies:
 
-## Reveals and pacing
+```sh
+python3 presentation/make_timeline.py
+```
 
-Each click adds a point or interpretation using `\uncover` or item overlays, preserving layout space. There are no per-symbol animation sequences. The complete existing figures are static full-page frames without a second title layered over them. The risk-set example uses consecutive logical slides: setup on slide 12, then the existing worked-answer PDF on slide 13. In handout mode both are retained as distinct teaching steps, while repeated overlay pages disappear. Notes are embedded in the Beamer source but hidden in the audience PDFs; `speaker_notes.md` is the separate readable version.
+In the prepared cloud machine, use `/workspace/loan-survival-venv/bin/python` for that plotting command. Edit main slide content and notes in `lecture_main.tex`, backup content in `backup.tex`, and style in `seminar.tex`. Then rerun the build. If deliberately restructuring the talk, update the count/timing expectations and optional-slide indices in `build.py`.
 
-## Scientific sources and qualifications
+## Accuracy and review
 
-Numerical source of truth: [`REPORT.md`](../REPORT.md), [`LECTURE_EXAMPLE.md`](../LECTURE_EXAMPLE.md), and the existing `results/` CSVs. All five existing vector PDF figures are used without modification. The survival and PH curves and the coefficient log(2) in the risk-set example are hypothetical. The empirical result is the existing origination-year-stratified cause-specific default-hazard model among exposed loans, with borrower-clustered approximate intervals.
+Numerical source of truth remains [`REPORT.md`](../REPORT.md), [`LECTURE_EXAMPLE.md`](../LECTURE_EXAMPLE.md) and existing audited `results/` CSVs. Survival/PH curves and risk-set beta=log(2) are explicitly hypothetical. Binary classification can target a defined horizon but needs appropriate labels; survival methods accommodate timing and right censoring under suitable assumptions. Machine-learning methods can also model survival data; no inherent superiority or predictive-performance claim is made.
 
-Visible qualifications distinguish rates from probabilities and associations from causal effects. The relation S=exp(−H) is explicitly restricted to a default-only setting, with a competing-closure warning. Nondefault endings are the audited closure proxy conditional on Repaid status, not universal actual repayment dates. Corrected PH concerns refer to age and new-customer status, not the earlier original-term PH claim. Original term is reconstructed from the original monthly schedule. Monetary values are used as recorded; exact source currency/income-period definitions and the default arrears threshold remain unverified. More detailed qualifications and diagnostics are in the notes and two backups.
+The empirical interpretation remains a year-stratified cause-specific default hazard among exposed loans, using the audited closure proxy conditional on Repaid status and original monthly-schedule term reconstruction. HRs are conditional associations, not probability ratios or causal effects. S=exp(−H) is visibly confined to the simplified default-only setting. Age/new-customer PH concerns, age nonlinearity, borderline term nonlinearity, approximate tied-date intervals and unresolved source-definition qualifications are retained. The superseded original-term PH finding is not repeated.
 
-## Quality checks
-
-Both versions compile. The checked final logs contain no overflow/underflow boxes, undefined references or missing glyphs. Every presentation page, including intermediate reveals, and every handout logical slide is visually reviewed for clipping, equations, overlap and readable labels. Final-overlay/handout rendering comparisons and repeated-text positions check stable layouts. No model, statistical test, predictive metric or additional empirical analysis is introduced.
-
-The 25-minute pacing is a rehearsal target, not a measured delivery time. Source-definition limitations from the audit remain; slides do not resolve them.
+Both PDFs compile without LaTeX warnings or over/underfull boxes. Every logical slide and reveal is visually reviewed for readable figures/equations, clipping, overlap and narrative transitions. Every handout page matches its final reveal, with no movement of existing text across overlays. Notes follow the actual reveal sequence. Statistical code, inputs, outputs, report and original figure assets remain unchanged. Scientific source limitations from the audit remain; the presentation does not resolve them.

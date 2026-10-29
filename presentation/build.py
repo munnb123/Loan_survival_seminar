@@ -10,6 +10,20 @@ import subprocess
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 BUILD = HERE / "build"
+MAIN_SLIDES = 26
+BACKUP_SLIDES = 2
+OPTIONAL_SLIDES = {5, 13}
+
+
+def clock(seconds):
+    return f'{seconds//60:02d}:{seconds%60:02d}'
+
+
+def frame_sources():
+    text = (HERE/'lecture_main.tex').read_text()+'\n'+(HERE/'backup.tex').read_text()
+    frames = re.findall(r'\\begin\{frame\}(?:\[[^\]]*\])?(?:\{([^}]*)\})?(.*?)\\end\{frame\}',text,re.DOTALL)
+    assert len(frames)==MAIN_SLIDES+BACKUP_SLIDES
+    return frames
 
 
 def read_csv(name):
@@ -44,8 +58,8 @@ def main():
             raise RuntimeError('\n'.join(problems))
         nav = (BUILD / f'{source}.nav').read_text()
         pages = [(int(a),int(b)) for a,b in re.findall(r'\\beamer@framepages\s*\{(\d+)\}\s*\{(\d+)\}',nav)]
-        if len(pages)!=22:
-            raise RuntimeError(f'Expected 20 main + 2 backup frames, got {len(pages)}')
+        if len(pages)!=MAIN_SLIDES+BACKUP_SLIDES:
+            raise RuntimeError(f'Expected {MAIN_SLIDES} main + {BACKUP_SLIDES} backup frames, got {len(pages)}')
         if source=='handout' and any(a!=b for a,b in pages):
             raise RuntimeError('Handout still contains repeated overlay pages')
         info = subprocess.run(['pdfinfo',str(BUILD/f'{source}.pdf')],capture_output=True,text=True,check=True).stdout
@@ -56,33 +70,45 @@ def main():
         shutil.copyfile(BUILD/f'{source}.pdf',HERE/f'{target}.pdf')
     sources = [ROOT/'REPORT.md',ROOT/'LECTURE_EXAMPLE.md',ROOT/'results/hazard_ratios.csv']
     sources += sorted((ROOT/'results/lecture_figures').glob('*.pdf'))
-    report = {'logical_slides':22,'main_slides':20,'backup_slides':2,'pdf_pages':counts,
+    sources += [HERE/'assets/loan_timelines.pdf']
+    frames=frame_sources()
+    report = {'logical_slides':MAIN_SLIDES+BACKUP_SLIDES,'main_slides':MAIN_SLIDES,'backup_slides':BACKUP_SLIDES,'pdf_pages':counts,
               'frame_page_ranges':ranges,'log_checks':'No overfull/underfull boxes, undefined references or missing characters',
               'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}
-    (HERE/'build_report.json').write_text(json.dumps(report,indent=2)+'\n')
-    tex = (HERE/'seminar.tex').read_text()
-    frames = re.findall(r'\\begin\{frame\}(?:\[[^\]]*\])?(?:\{([^}]*)\})?(.*?)\\end\{frame\}',tex,re.DOTALL)
-    assert len(frames)==22
     notes = ['# Speaker notes — Luke Munnelly',
-             '\nStandalone MSc seminar. **20 main slides, 25:00 total.** Two optional backup slides are outside the timing. '
-             'The presentation has 39 pages because progressive reveals expand logical slides; the handout has 22 pages, one per logical slide. '
-             'The static PDF figures occupy complete frames and do not animate. On slide 12, discuss the risk-set setup before advancing to the worked answer on slide 13.\n',
-             '| Slide | Start–end | Duration | Topic |','| --- | --- | --- | --- |']
-    details=[]; elapsed=0
-    def clock(s): return f'{s//60:02d}:{s%60:02d}'
+             f'\nStandalone lecture for MSc Stochastics and Financial Mathematics students. **{MAIN_SLIDES} main logical slides; 26:40 at a calm pace.** '
+             'Skip optional slides 5 (55 seconds) and 13 (45 seconds) for a **25:00 speaking route**. '
+             'Audience questions and the two backup slides are outside both plans. Timings include the indicated pauses and figure reading, not extra theory or audience discussion. '
+             f'The presentation has {counts["presentation"]} overlay-expanded pages; the handout has {counts["handout"]} pages, one per logical slide.\n',
+             '## Practical 25-minute route\n',
+             f'- After slide 4, skip optional slide 5 and resume slide 6 on presentation PDF page {ranges["presentation"][5][0]}.',
+             f'- After slide 12, skip optional slide 13 and resume slide 14 on presentation PDF page {ranges["presentation"][13][0]}.',
+             '- These transitions are self-contained: slide 4 already explains the horizon issue, and slide 14 requires no cumulative-hazard notation.',
+             '- Do not rush the opening, graph reading or conditional risk-set calculation. If nervous, take the scripted short pauses rather than filling them with extra material.',
+             '- Risk-set setup is slide 18; the static worked-answer figure is slide 19. Explain the setup before advancing.\n',
+             '## Schedule\n',
+             '| Slide | Full-plan time | 25-minute route | Duration | Topic |',
+             '| --- | --- | --- | --- | --- |']
+    details=[]; elapsed=0; essential=0; titles=[]
     for i,(title,body) in enumerate(frames,1):
         timing, explanation = re.search(r'\\talknote\{([^}]*)\}\{(.*?)\}',body,re.DOTALL).groups()
         if not title:
             figure = re.search(r'\\fullfigure\{([^}]+)\}',body)
-            title = figure.group(1)[3:].replace('_',' ').title() if figure else 'When Will a Borrower Default?'
-        seconds = sum(int(n)*m for n,m in zip(timing.split(':'),[60,1])) if i<=20 else 0
-        span=f'{clock(elapsed)}–{clock(elapsed+seconds)}' if i<=20 else 'Optional'
-        notes.append(f'| {i if i<=20 else "B"+str(i-20)} | {span} | {timing if i<=20 else "—"} | {title} |')
-        details.append(f'\n## {i if i<=20 else "B"+str(i-20)}. {title} ({span})\n\n'+explanation.strip()+'\n')
+            title = figure.group(1)[3:].replace('_',' ').title() if figure else ('Follow-up timelines' if '\\timelinefigure' in body else 'When Will a Borrower Default?')
+        titles.append(title)
+        seconds = sum(int(n)*m for n,m in zip(timing.split(':'),[60,1])) if i<=MAIN_SLIDES else 0
+        span=f'{clock(elapsed)}–{clock(elapsed+seconds)}' if i<=MAIN_SLIDES else 'Backup'
+        short='Skip' if i in OPTIONAL_SLIDES else (f'{clock(essential)}–{clock(essential+seconds)}' if i<=MAIN_SLIDES else 'Backup')
+        label=str(i) if i<=MAIN_SLIDES else 'B'+str(i-MAIN_SLIDES)
+        notes.append(f'| {label} | {span} | {short} | {timing if i<=MAIN_SLIDES else "—"} | {title} |')
+        details.append(f'\n## {label}. {title} ({span}; short route: {short})\n\n'+explanation.strip()+'\n')
         elapsed+=seconds
-    assert elapsed==1500, f'Expected 25 minutes, got {elapsed} seconds'
+        if i not in OPTIONAL_SLIDES:essential+=seconds
+    assert elapsed==1600 and essential==1500, (elapsed,essential)
+    report.update(frame_titles=titles,speaking_seconds=elapsed,slot_route_seconds=essential,optional_main_slides=sorted(OPTIONAL_SLIDES))
+    (HERE/'build_report.json').write_text(json.dumps(report,indent=2)+'\n')
     (HERE/'speaker_notes.md').write_text('\n'.join(notes+details))
-    print(json.dumps({'logical_slides':22,'main_slides':20,'backup_slides':2,'pdf_pages':counts},indent=2))
+    print(json.dumps({k:report[k] for k in ['logical_slides','main_slides','backup_slides','pdf_pages','speaking_seconds','slot_route_seconds']},indent=2))
 
 
 if __name__=='__main__':

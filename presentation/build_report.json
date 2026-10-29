@@ -1,10 +1,10 @@
 {
-  "logical_slides": 22,
-  "main_slides": 20,
+  "logical_slides": 28,
+  "main_slides": 26,
   "backup_slides": 2,
   "pdf_pages": {
-    "presentation": 39,
-    "handout": 22
+    "presentation": 52,
+    "handout": 28
   },
   "frame_page_ranges": {
     "presentation": [
@@ -22,26 +22,22 @@
       ],
       [
         7,
-        7
+        8
       ],
       [
-        8,
-        9
+        9,
+        11
       ],
       [
-        10,
-        10
-      ],
-      [
-        11,
-        12
-      ],
-      [
-        13,
+        12,
         14
       ],
       [
         15,
+        15
+      ],
+      [
+        16,
         16
       ],
       [
@@ -54,10 +50,6 @@
       ],
       [
         20,
-        20
-      ],
-      [
-        21,
         21
       ],
       [
@@ -66,14 +58,14 @@
       ],
       [
         24,
-        26
+        25
       ],
       [
-        27,
-        29
+        26,
+        27
       ],
       [
-        30,
+        28,
         30
       ],
       [
@@ -82,6 +74,14 @@
       ],
       [
         33,
+        33
+      ],
+      [
+        34,
+        34
+      ],
+      [
+        35,
         35
       ],
       [
@@ -90,11 +90,35 @@
       ],
       [
         38,
-        38
+        40
       ],
       [
-        39,
-        39
+        41,
+        41
+      ],
+      [
+        42,
+        42
+      ],
+      [
+        43,
+        44
+      ],
+      [
+        45,
+        47
+      ],
+      [
+        48,
+        50
+      ],
+      [
+        51,
+        51
+      ],
+      [
+        52,
+        52
       ]
     ],
     "handout": [
@@ -185,6 +209,30 @@
       [
         22,
         22
+      ],
+      [
+        23,
+        23
+      ],
+      [
+        24,
+        24
+      ],
+      [
+        25,
+        25
+      ],
+      [
+        26,
+        26
+      ],
+      [
+        27,
+        27
+      ],
+      [
+        28,
+        28
       ]
     ]
   },
@@ -197,6 +245,43 @@
     "results/lecture_figures/02_illustrative_survival.pdf": "f84152c05434a09a576d71fd7159792ec842de0991825446a096b668144b6902",
     "results/lecture_figures/03_proportional_hazards.pdf": "0deba0811836c1abd09024a8913922ca5fdf6b01905dd24f1789fc22df0c81a4",
     "results/lecture_figures/04_cox_risk_set.pdf": "81768af556ddcbbe86be3b83efa6a1e737b1309663592179a8f1bda8f9a75406",
-    "results/lecture_figures/05_audited_hazard_ratios.pdf": "41b9c2efbd2eedad6b470ee8e37181dadfcaf39e6b250a2f48a5a3b92960d307"
-  }
+    "results/lecture_figures/05_audited_hazard_ratios.pdf": "41b9c2efbd2eedad6b470ee8e37181dadfcaf39e6b250a2f48a5a3b92960d307",
+    "presentation/assets/loan_timelines.pdf": "b31f1c31691429ed24a390e88a0180f0200f2cf7a3ae54d20894e180acab5774"
+  },
+  "frame_titles": [
+    "When Will a Borrower Default?",
+    "Should these be the same outcome?",
+    "A third borrower has not defaulted yet",
+    "A binary label needs a horizon",
+    "Which 12-month labels are known?",
+    "Why survival analysis?",
+    "Choose the event and the clock",
+    "Follow-up timelines",
+    "The survival function",
+    "Illustrative Survival",
+    "How rapidly are defaults occurring now?",
+    "From a short interval to a hazard rate",
+    "From hazard to survival",
+    "Borrowers have different characteristics",
+    "The Cox model",
+    "Compare otherwise identical borrowers",
+    "Proportional Hazards",
+    "How does Cox learn relative effects?",
+    "Cox Risk Set",
+    "The audited Bondora cohort",
+    "Follow-up uses audited endpoints",
+    "Five predictors and their contrasts",
+    "Audited Hazard Ratios",
+    "New versus existing customer",
+    "Where interpretation is limited",
+    "Back to the lending question",
+    "Backup: partial likelihood",
+    "Backup: corrected diagnostics"
+  ],
+  "speaking_seconds": 1600,
+  "slot_route_seconds": 1500,
+  "optional_main_slides": [
+    5,
+    13
+  ]
 }
