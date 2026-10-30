@@ -89,7 +89,7 @@ def timelines():
 
 def survival():
     fig = canvas("Survival: the probability of remaining default-free",
-                 "HYPOTHETICAL · Default-only setting; not a Bondora estimate")
+                 "Illustrative example · Default-only setting")
     ax = fig.add_axes([.11, .22, .82, .55])
     t = np.linspace(0, 24, 481)
     s = np.exp(-.02*t)

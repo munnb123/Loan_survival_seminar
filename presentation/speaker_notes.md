@@ -41,7 +41,7 @@ Standalone lecture for MSc Stochastics and Financial Mathematics students. **30 
 | 25 | 21:40–22:50 | 20:00–21:10 | 1:10 | Adjusted Cox hazard ratios |
 | 26 | 22:50–24:00 | 21:10–22:20 | 1:10 | New versus existing customer |
 | 27 | 24:00–25:20 | 22:20–23:40 | 1:20 | Where interpretation is limited |
-| 28 | 25:20–26:20 | 23:40–24:40 | 1:00 | Conclusion |
+| 28 | 25:20–26:20 | 23:40–24:40 | 1:00 | Default risk changes over time |
 | 29 | 26:20–26:40 | 24:40–25:00 | 0:20 | Sources |
 | 30 | Discussion — outside speaking time | Discussion — outside speaking time | — | Questions? |
 
@@ -97,7 +97,7 @@ We now have a reason to introduce notation. Let T_D be time to default in a simp
 
 ## 11. Illustrative Survival (07:40–08:40; short route: 06:45–07:45)
 
-This curve is hypothetical, not a Bondora estimate. Start at one on the vertical axis and move right along elapsed months. Trace the month-twelve guide up to the curve, then across to about 0.79. Pause for three seconds so the audience can read the guides. About 79 percent remain default-free at twelve months in this default-only example. The formula exp(-0.02t) uses t in months. The same plot is already visible throughout this frame; guide attention verbally rather than pretending it animates.
+This curve is an illustrative default-only example. Start at one on the vertical axis and move right along elapsed months. Trace the month-twelve guide up to the curve, then across to about 0.79. Pause for three seconds so the audience can read the guides. About 79 percent remain default-free at twelve months in this default-only example. The formula exp(-0.02t) uses t in months. The same plot is already visible throughout this frame; guide attention verbally rather than pretending it animates.
 
 
 ## 12. How rapidly are defaults occurring now? (08:40–09:15; short route: 07:45–08:20)
@@ -180,14 +180,14 @@ Show and explain the estimate first. On the next reveal, subtract one from the u
 One short point per reveal. Corrected elapsed-rank and log-time diagnostics flag age and new-customer status; the superseded original-term PH finding is not repeated. Age also shows nonlinearity, while term has a borderline nonlinear departure, a separate assumption. Daily ties make the borrower-clustered Wald intervals approximate. The full-sample PH tests are approximate and not cluster adjusted. The source arrears threshold, full-repayment timing, monetary measurement definitions and original monthly-schedule proxy remain qualified. Detailed p-values and sensitivity checks are in the speaker notes; do not turn this into a new modelling exercise.
 
 
-## 28. Conclusion (25:20–26:20; short route: 23:40–24:40)
+## 28. Default risk changes over time (25:20–26:20; short route: 23:40–24:40)
 
-Answer the opening question in three calm steps. First, the observed accumulation: by the study's two-year, 730-day horizon, recorded default reached about 27.4 percent for new-customer loans and 21.2 percent for existing-customer loans. These are unadjusted loan-level descriptive estimates under the audited closure proxy. Second, the separate adjusted association: the unchanged new-customer hazard ratio is 1.4445, displayed as 1.445, or about 44 percent higher conditional default hazard among exposed loans. This is not a ratio of the two cumulative proportions or a causal effect. Third, describe patterns over time without assigning a certain individual default date. Keep detailed qualifications in the notes; do not read them all aloud. Cox can estimate survival with its baseline in a default-only setting; actual probabilities with competing closure need both event processes. Advance to Sources briefly, then leave the separate Questions slide visible during discussion.
+Reveal one point at a time, leaving space for the audience to read. Survival analysis retains the information from incomplete follow-up. The rounded two-year figures come from the audited descriptive cumulative-incidence estimates: 27.4 percent for new-customer loans and 21.2 percent for existing-customer loans, with recorded closure treated as a competing event. These are unadjusted group percentages, not Cox predictions. Cox relates the included characteristics to the cause-specific default rate among loans still exposed; its effects are adjusted associations rather than causal effects or probability ratios. We cannot name a certain default date. We can describe how default accumulates over time and which borrower characteristics are associated with higher default rates.
 
 
 ## 29. Sources (26:20–26:40; short route: 24:40–25:00)
 
-Cover sources briefly rather than reading every citation. The actual dataset is Bondora Peer to Peer Lending Loan Data, distributed on Kaggle by sid321axn, with the 20 July 2021 reporting snapshot used here. Cox's 1972 paper supplies the regression model; Aalen and Johansen's 1978 paper supplies the transition-probability estimator; Putter, Fiocco and Geskus's 2007 tutorial supports the competing-risk interpretation. Full titles and bibliographic verification are in references.md. The repository link provides the exact audited numerical outputs and reproducible code. No course-note document was supplied in the available files, and no course-note author is inferred. End the speaking plan after this brief acknowledgement and advance to Questions.
+Cover sources briefly rather than reading every citation. The actual dataset is Bondora Peer to Peer Lending Loan Data, distributed on Kaggle by sid321axn, with the 20 July 2021 reporting snapshot used here. Cox's 1972 paper supplies the regression model; Aalen and Johansen's 1978 paper supplies the transition-probability estimator; Putter, Fiocco and Geskus's 2007 tutorial supports the competing-risk interpretation. Full titles and bibliographic verification are in references.md. The project README documents the reproducible code and audited numerical outputs. No course-note document was supplied in the available files, and no course-note author is inferred. End the speaking plan after this brief acknowledgement and advance to Questions.
 
 
 ## 30. Questions? (Discussion — outside speaking time; short route: Discussion — outside speaking time)

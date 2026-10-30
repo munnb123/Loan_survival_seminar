@@ -10,7 +10,7 @@ Polished standalone lecture for MSc Stochastics and Financial Mathematics studen
 
 The flow remains lending problem → why survival analysis → censoring/survival/hazard → Cox → descriptive timing and adjusted rate comparisons → conclusion. The empirical transition explicitly distinguishes unadjusted group curves from Cox comparisons accounting for the included characteristics. The early six-month example uses ordinary observation language; risk sets are introduced in the Cox estimation example. Endpoint rules use plain language, with field names retained in notes. Proportional hazards is written out on slides.
 
-The three-part conclusion progressively reveals **WHEN?**, **WHICH BORROWERS?**, and **INTERPRETATION**. The 27.4%/21.2% timing comparison is unadjusted/descriptive under the audited closure proxy. The approximately 44% higher default hazard comes from the separate adjusted HR 1.445. A short visible qualification keeps those meanings distinct. Sources follow; questions do not share the conclusion slide.
+The conclusion, “Default risk changes over time”, progressively reveals three points: using timing and incomplete follow-up, the descriptive two-year group percentages (about 27% and 21%), and Cox associations with the default rate among exposed loans. A short visible qualification distinguishes descriptive percentages from adjusted associations. It does not repeat the preceding hazard-ratio example. Sources retain the dataset and academic references without a visible repository URL; the separate Questions slide remains last. Repository: https://github.com/munnb123/Loan_survival_seminar/tree/presentation/msc-survival-seminar.
 
 ## Speaking plan — presenter notes only
 
@@ -76,4 +76,10 @@ Source of truth: `REPORT.md`, `LECTURE_EXAMPLE.md`, `results/hazard_ratios.csv` 
 
 Original closure-proxy and monthly original-term definitions, source currency/income-period uncertainty, age/new-customer proportional-hazards concerns, nonlinearity and approximate tied-date intervals remain in the presentation/notes. Bibliographic details were checked against accessible maintained bibliographies and the Kaggle record; the verification scope is recorded in `references.md` rather than implying unavailable publisher pages were inspected.
 
-Both PDFs compile without warnings, over/underfull boxes, missing characters or undefined references. Changed slides and all relevant reveals are visually inspected for readability, clipping and overlap. Existing text positions stay fixed across reveals, and every handout slide matches its final reveal. The audit, cohort, model, numerical tables and original figures are unchanged. Nothing has been merged.
+Both PDFs compile without warnings, over/underfull boxes, missing characters or undefined references. Changed slides and all relevant reveals are visually inspected for readability, clipping and overlap. Existing text positions stay fixed across reveals, and every handout slide matches its final reveal. The audit, cohort, model and numerical tables are unchanged. Only the illustrative survival figure subtitle is revised, in its generating source and regenerated SVG/PNG/PDF assets. Nothing has been merged.
+
+To regenerate only the illustrative survival figure (using the pinned plotting environment):
+
+```sh
+/workspace/loan-survival-venv/bin/python -c "from analysis.lecture_figures import survival; survival()"
+```

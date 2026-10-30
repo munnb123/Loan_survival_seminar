@@ -117,7 +117,7 @@ def main():
         elapsed+=seconds
         if i not in OPTIONAL_SLIDES:essential+=seconds
     assert elapsed==1600 and essential==1500, (elapsed,essential)
-    assert titles[-3:]==['Conclusion','Sources','Questions?'],titles[-3:]
+    assert titles[-3:]==['Default risk changes over time','Sources','Questions?'],titles[-3:]
     report.update(frame_titles=titles,speaking_seconds=elapsed,slot_route_seconds=essential,optional_main_slides=sorted(OPTIONAL_SLIDES),teaching_slides=28,sources_slide=29,questions_slide=30)
     (HERE/'build_report.json').write_text(json.dumps(report,indent=2)+'\n')
     (HERE/'speaker_notes.md').write_text('\n'.join(notes+details)+'\n'+(HERE/'questions.md').read_text()+'\n'+(HERE/'references.md').read_text())

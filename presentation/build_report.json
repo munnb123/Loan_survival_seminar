@@ -258,7 +258,7 @@
     "LECTURE_EXAMPLE.md": "6f5a347fb48e11dd91b7caa4bcba10903700b800aaeeef2f4670cdf3ec5721dd",
     "results/hazard_ratios.csv": "8390fc46949fa9327491c5c329173f8db8ee26e9b54da0d59eea45d42b62c5ea",
     "results/lecture_figures/01_loan_timelines.pdf": "429ca2386ca87e42575ca68c1351bdc95564626393ff146008216bdf57445c74",
-    "results/lecture_figures/02_illustrative_survival.pdf": "f84152c05434a09a576d71fd7159792ec842de0991825446a096b668144b6902",
+    "results/lecture_figures/02_illustrative_survival.pdf": "a29f315d06073be3ecdc4d5085ec431255795393ea9f816dd3363072858fe70f",
     "results/lecture_figures/03_proportional_hazards.pdf": "0deba0811836c1abd09024a8913922ca5fdf6b01905dd24f1789fc22df0c81a4",
     "results/lecture_figures/04_cox_risk_set.pdf": "81768af556ddcbbe86be3b83efa6a1e737b1309663592179a8f1bda8f9a75406",
     "results/lecture_figures/05_audited_hazard_ratios.pdf": "41b9c2efbd2eedad6b470ee8e37181dadfcaf39e6b250a2f48a5a3b92960d307",
@@ -298,7 +298,7 @@
     "Adjusted Cox hazard ratios",
     "New versus existing customer",
     "Where interpretation is limited",
-    "Conclusion",
+    "Default risk changes over time",
     "Sources",
     "Questions?"
   ],
