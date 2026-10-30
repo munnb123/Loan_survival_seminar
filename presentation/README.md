@@ -10,7 +10,7 @@ Polished standalone lecture for MSc Stochastics and Financial Mathematics studen
 
 The flow remains lending problem → why survival analysis → censoring/survival/hazard → Cox → descriptive timing and adjusted rate comparisons → conclusion. The empirical transition explicitly distinguishes unadjusted group curves from Cox comparisons accounting for the included characteristics. The early six-month example uses ordinary observation language; risk sets are introduced in the Cox estimation example. Endpoint rules use plain language, with field names retained in notes. Proportional hazards is written out on slides.
 
-The conclusion, “Default risk changes over time”, progressively reveals three points: using timing and incomplete follow-up, the descriptive two-year group percentages (about 27% and 21%), and Cox associations with the default rate among exposed loans. A short visible qualification distinguishes descriptive percentages from adjusted associations. It does not repeat the preceding hazard-ratio example. Sources retain the dataset and academic references without a visible repository URL; the separate Questions slide remains last. Repository: https://github.com/munnb123/Loan_survival_seminar/tree/presentation/msc-survival-seminar.
+The conclusion, “Why default timing matters”, progressively connects default timing to outstanding exposure, incomplete histories and potential uses in lending, pricing and monitoring. It repeats no empirical estimates. Notes return to the opening loan example and qualify practical applications: predictive validation and loss, recovery and competing-closure information are required; improved profitability or decision quality has not been demonstrated. Sources and the separate Questions slide follow. Repository: https://github.com/munnb123/Loan_survival_seminar/tree/presentation/msc-survival-seminar.
 
 ## Speaking plan — presenter notes only
 
@@ -31,7 +31,7 @@ These are rehearsal targets, not measured delivery times. The generated notes gi
 - `speaker_notes.md`: generated timings/prompts plus reference answers and citations.
 - `questions.md`: anticipated questions and retained technical detail; never displayed as slides.
 - `references.md`, `reference_verification.json`: full bibliography and checked citation/data metadata. No course-note author is invented for an unavailable document.
-- `audited_values.tex`: displayed values generated from the existing audited CSVs, including the conclusion percentages and rounded hazard increase.
+- `audited_values.tex`: displayed values generated from the existing audited CSVs, including the descriptive percentages and rounded hazard increase.
 - `make_result_figure.py`, `assets/audited_hazard_ratios.*`: presentation-only version of the unchanged audited HR estimates, with the dots/bars explanation given once on the plot. Important assumption/source qualifications remain in the limitations slide and notes.
 - `make_timeline.py`, `assets/loan_timelines.*`: the existing hypothetical timeline illustration.
 - `build.py`, `review.py`, `build_report.json`, `render_checks.json`: reproducible build and layout checks.
